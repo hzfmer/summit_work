@@ -1,0 +1,24 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l nodes=16:ppn=3:xe
+#PBS -l walltime=00:15:00
+#PBS -N pt_src_GVDA
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+
+export MPICH_RANK_REORDER_DISPLAY=1
+export MPICH_RANK_REORDER_METHOD=0
+export PMI_NO_FORK=1
+
+module swap PrgEnv-cray PrgEnv-gnu
+module load cudatoolkit
+
+args=`cat param.sh`
+cat $0
+echo "Starting run.pbs.$(date)"
+echo $args
+aprun -n 48 -N 3 /u/sciteam/hu2/code_gpu_preevents_dm/pmcl3d $args
+echo "Ending.$(date)"

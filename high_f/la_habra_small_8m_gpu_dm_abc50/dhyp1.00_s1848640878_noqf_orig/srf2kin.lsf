@@ -1,0 +1,15 @@
+#!/bin/bash -l
+#BSUB -J srf2kin
+#BSUB -P geo112
+#BSUB -W 0:02
+#BSUB -nnodes 3
+#BSUB -alloc_flags maximizegpfs
+#BSUB -o srf2kin_%J.out
+#BSUB -e srf2kin_%J.err
+
+cd $LS_SUBCWD
+echo "Running srf2kin.lsf. `date`\n"
+module unload darshan-runtime
+cat $0
+jsrun -n 125 -a 1 -c 1 -g 0 ~/srf2kin_gp/srf2kin_gp
+date

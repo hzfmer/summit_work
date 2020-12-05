@@ -1,0 +1,15 @@
+model_region="-R-118.209/-117.785/33.693/34.045"
+gmt begin results/tf_misfit_topo_q100f08_orig_0.15_5hz png
+gmt basemap -JM15c $model_region -Baf -BSWen
+gmt makecpt -Cgray -D -V -I -T-1000/3412/10
+gmt grdimage @earth_relief_15s -I+d -t30
+gmt surface results/tf_misfit_topo_q100f08_orig_0.15_5hz.txt $model_region -Ginterp1.grd -I128e/128e -T0.15
+gmt grdsample interp1.grd $model_region -Ginterp.grd -I8e/8e
+gmt grdclip interp.grd -Gclip.grd -Sa79.9/79.9 -Sb20.0001/20.0001
+gmt makecpt -Cpolar -T20/80/0.1
+gmt grdimage clip.grd -I+d
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa10+lEGOF
+gmt plot results/tf_misfit_topo_q100f08_orig_0.15_5hz.txt -St0.4c -C -W1p,black -l"Station"
+gmt plot borders.txt -W4p,lightblue -L
+echo -117.932587 33.918633 | gmt plot -Sa0.7c -Ggreen -l"La Habra"
+gmt end

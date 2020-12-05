@@ -1,0 +1,49 @@
+gmt begin test png
+#gmt basemap -JM15c -R-119.5/-116/33/35.5 -Baf -BSWen
+gmt coast -JM15c -R-119.5/-116/33/35.5 -G -W1/1p,red -Baf -BSWen
+gmt makecpt -Crelief -T-3000/3500 -Z
+gmt grdimage @earth_relief_15s -I+d -t30
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa1000+lElevation -By+lm
+gmt end
+
+##gmt plot 223_3_19_uniform_rotd50_0.5s.txt -Sc0.2c -C -l"Station"
+#gmt plot -Sc0.3c -Gpurple -l"Station" << EOF
+#-118.58717 34.209946
+#-118.54903 34.15379
+#-118.60878 34.23448
+#-118.46393 34.285625
+#-118.59051 34.38693
+#-118.35851 34.17667
+#-118.22211 34.01
+#-118.98116 34.3598
+#-117.73417 34.45455
+#-117.4562 33.85679
+#EOF
+#gmt text -Fred+jRT -D0/-0.1c -Glightblue  << EOF
+#-118.58717 34.209946 P21
+#EOF
+#gmt text -Fred+jCT -D0/-0.2c -Glightblue  << EOF
+#-118.54903 34.15379 P23
+#EOF
+#gmt text -Fred+jRB -D-0.2c/0c -Glightblue  << EOF
+#-118.60878 34.23448 P20
+#EOF
+#gmt text -Fred+jLM -D0.3c/0 -Glightblue  << EOF
+#-118.46393 34.285625 P2
+#-118.59051 34.38693 s201
+#-118.35851 34.17667 s311
+#EOF
+#gmt text -Fred+jCT -D0/-0.3c -Glightblue  << EOF
+#-118.22211 34.01 s389
+#-118.98116 34.3598 s070
+#-117.73417 34.45455 s467
+#-117.4562 33.85679 s682
+#EOF
+##gmt colorbar -Bxa1 -B+l"SA"
+#gmt plot -Sa0.7c -Ggreen -l"Northridge"<< EOF
+#-118.537 34.213 
+#EOF
+#gmt plot -Sa0.7c -Glightcyan << EOF
+#-118.437 34.223 
+#EOF
+#gmt end 

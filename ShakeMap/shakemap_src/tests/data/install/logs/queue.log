@@ -1,0 +1,12 @@
+2020-03-25 04:53:12 - INFO - Testing the logger
+2020-03-25 04:53:12 - INFO - Queueing event test_event due to action "test"
+2020-03-25 04:53:12 - INFO - Running event test_event
+2020-03-25 04:53:12 - INFO - Writing event test_event to event.xml
+2020-03-25 04:53:13 - INFO - Reaped child for event test_event (return code 0)
+2020-03-25 04:53:13 - INFO - Canceling event test_event
+2020-03-25 04:53:14 - INFO - Reaped child for event test_event (return code 0)
+2020-03-25 04:53:14 - INFO - Queueing event test_event due to action "Event added"
+2020-03-25 04:53:14 - INFO - Running event test_event
+2020-03-25 04:53:14 - INFO - Writing event test_event to event.xml
+2020-03-25 04:53:15 - INFO - Reaped child for event test_event (return code 0)
+2020-03-25 04:53:15 - INFO - Delaying processing event test_event due to network delay configuration.

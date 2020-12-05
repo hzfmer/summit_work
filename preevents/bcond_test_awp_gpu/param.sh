@@ -1,0 +1,12 @@
+  -X 64 -Y 64 -Z 128 -x 2 -y 2 -G 1
+  --TMAX 1.0 --DH 1.0 --DT 0.00025
+  --ND 20 --ARBC 0.95 --NPC 2
+  --IFAULT 6 --NST 1000 --READ_STEP 1000
+  --INSRC invel2.txt --NSRC 1
+  --IDYNA 0  --NVE 3 --NVAR 3 
+  --MEDIASTART 0 --INVEL mesh 
+  --OUT output_sfc --CHKFILE output_ckp/CHKP
+  --NTISKP 10 --WRITE_STEP 20 
+  --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0
+  --NBGX 1 --NEDX 64 --NBGY 1 --NEDY 64
+  --NBGZ 1 --NEDZ 128

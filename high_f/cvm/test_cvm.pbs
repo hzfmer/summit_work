@@ -1,0 +1,15 @@
+#!/bin/bash -l
+#PBS -A GEO112
+#PBS -l nodes=1
+#PBS -l walltime=00:20:00
+#PBS -N extract_cvm
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -M zhh076@ucsd.edu
+
+module load iobuf
+
+cd $PBS_O_WORKDIR
+DIR=/ccs/home/hzfmer/scratch/ucvm-19.4.0
+UCVMBIN=$DIR/bin
+aprun -n 16 $UCVMBIN/ucvm_query -f $DIR/conf/ucvm.conf -m cvms < cvms4_bkg_pts.txt > cvms4_bkg_res.txt 

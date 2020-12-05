@@ -1,0 +1,26 @@
+#!/bin/bash -l
+#BSUB -P geo112
+#BSUB -nnodes 10
+#BSUB -W 0:20
+#BSUB -J srcpart
+#BSUB -o srcpart_%J.out
+#BSUB -e srcpart_%J.err
+#BSUB -alloc_flags maximizegpfs
+
+module swap xl pgi
+module unload darshan-runtime
+cd $LS_SUBCWD
+./pre-run-srcpart
+echo "Running srcpart.lsf"
+cat $0
+date
+jsrun -n 400 -a 1 -c 1 -g 0 ~/PetaSrcP/srcpart-split-mpiio momrate.dat 1125520 40000 100 6320 4200 400 40 12 1 0
+date
+cd srcpart/split_faults/
+ln -s ../../link_splitfaults.py .
+python link_splitfaults.py
+cd ../tpsrc/
+ln -s ../../link_tpsrc.py .
+python link_tpsrc.py
+cd ../../
+

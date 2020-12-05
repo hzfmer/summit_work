@@ -1,0 +1,21 @@
+#!/bin/bash -l
+# BEGIN LSF Directives
+#BSUB -J TKCH05_A78_bd97.5
+#BSUB -P geo112
+#BSUB -W 01:30
+#BSUB -nnodes 4
+#BSUB -alloc_flags "gpumps smt1"
+#BSUB -o %J.out
+#BSUB -e %J.err
+##BSUB -N
+
+cd $LS_SUBCWD
+module unload darshan-runtime
+module load cuda
+
+args=`cat param.sh`
+echo "Starting run.lfs.$(date)"
+cat $0
+echo $args
+jsrun -n 16 -a 3 -c 3 -g 1 -r 4 -d cyclic /ccs/home/hzfmer/code_gpu_preevents_dm/pmcl3d $args
+echo "Ending.$(date)"

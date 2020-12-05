@@ -1,0 +1,15 @@
+#!/bin/bash -l
+#PBS -A GEO112
+#PBS -l nodes=2
+#PBS -l walltime=1:00:00
+#PBS -N psr
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -m bea
+##PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+date
+echo "Running psr.pbs\n"
+aprun -n 30 ~/awp_tools/bin_cray/psr -f -l 1.0 -d 0.06
+date

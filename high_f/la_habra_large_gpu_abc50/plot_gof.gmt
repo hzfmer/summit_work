@@ -1,0 +1,24 @@
+range=-R-119.02/-116.77/33.05/34.93
+model_region=-R-118.5/-117.23/33.6/34.35
+gmt begin results/dur_topo_q50f06_s05h005l100_vs500_0.15_5hz pdf
+gmt set MAP_FRAME_TYPE plain
+gmt basemap -JM15c $model_region -Baf -BSWen
+gmt makecpt -Cgray -D -V -I -T-800/3000/10
+gmt grdimage @earth_relief_15s -I+d
+gmt surface results/dur_topo_q50f06_s05h005l100_vs500_0.15_5hz.txt $model_region -Ginterp.grd -C2 -I5k/5k -T0.25
+gmt grdsample interp.grd $model_region -Ginterp.grd -I128e/128e
+gmt grdclip interp.grd -Gclip.grd -Sa23.614561799999997/23.614561799999997 -Sb5.158153/5.158153
+gmt makecpt -Cinferno -Ic -T5.1530000000000005/23.638199999999998/0.184852
+gmt grdimage $model_range clip.grd -t40
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa3+l"DUR (s)"
+gmt plot results/dur_topo_q50f06_s05h005l100_vs500_0.15_5hz.txt -St0.05c -C -W0.2p,black -l"Station"
+echo -117.932587 33.918633 | gmt plot -Sa1c -Ggreen
+gmt coast -JM15c -Swhite
+# gmt plot borders.txt -W3p,lightblue -L
+# gmt plot -W2p,black -L << EOF
+# -118.5 33.6
+# -117.23 33.6
+# -117.23 34.35
+# -118.5 34.35
+# EOF
+gmt end

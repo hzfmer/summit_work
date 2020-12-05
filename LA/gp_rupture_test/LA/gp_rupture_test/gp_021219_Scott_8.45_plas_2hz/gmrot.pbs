@@ -1,0 +1,19 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l nodes=27:ppn=16
+#PBS -l walltime=2:00:00
+#PBS -N gmrot
+#PBS -j oe
+##PBS -m bea
+##PBS -M zhh076@ucsd.edu
+
+module swap PrgEnv-cray PrgEnv-pgi
+module load cudatoolkit
+
+cd $PBS_O_WORKDIR
+./mklink.sh 40000
+date
+echo "Running gmrot.pbs\n"
+cat $0
+aprun -n 420 ~/file_back/programs/output_processing4/gmrot_mpi
+date

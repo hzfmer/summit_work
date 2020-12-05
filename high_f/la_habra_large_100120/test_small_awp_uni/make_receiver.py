@@ -1,0 +1,1 @@
+../test_small_awp_dm/make_receiver.py

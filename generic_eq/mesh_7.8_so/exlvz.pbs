@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -A GEO112
+#PBS -l nodes=7
+#PBS -l walltime=1:00:00
+#PBS -N cvm
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+# #PBS -m bea
+# #PBS -M droten@sdsc.edu
+
+cd $PBS_O_WORKDIR
+
+aprun -n 100 ./def_dmz_100m

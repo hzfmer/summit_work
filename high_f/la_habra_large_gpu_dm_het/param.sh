@@ -1,0 +1,12 @@
+  -X 3000 -Y 2250 -Z 380,900 -x 50 -y 30 -G 2 
+  --TMAX 120.00   --DH  60.0 --DT 0.001 
+  --ND 20 --ARBC 0.95 
+  --NSRC 1560,0 --NST 5000 --READ_STEP 5000 --WRITE_STEP 100
+  --IFAULT 1 --INSRC momrate_LaHabra.zf.100m.rev.large.bin   
+  --INVEL mesh  
+  --IDYNA 0  --NVE 1 --NVAR 3 
+  --MEDIASTART 2 
+  --NBGX 1,1 --NEDX 9000,3000 --NBGY 1,1 --NEDY 6750,2250 
+  --NBGZ 1,1 --NEDZ 1,1  --OUT output_sfc 
+  --NTISKP 10 
+  --FAC 1.0 --Q0 150. --EX 0.6 --FP 1.0

@@ -1,0 +1,14 @@
+#!/bin/bash -l
+#BSUB -J srf2kin
+#BSUB -P geo112
+#BSUB -W 0:05
+#BSUB -nnodes 6
+#BSUB -o srf2kin_%J.out
+#BSUB -e srf2kin_%J.err
+
+cd $LS_SUBCWD
+echo "Running srf2kin.lsf\n"
+date
+cat $0
+jsrun -n 6 -a 40 -c 40 -g 0 -r 1 ~/srf2kin_gp/srf2kin_gp_7_35
+date

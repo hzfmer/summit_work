@@ -1,0 +1,49 @@
+range="143.602/143.634/43.106/43.135"
+range="143.607/143.629/43.111/43.130"
+left=143.61201812884136
+right=143.6246317601094
+bot=43.116643758690536
+top=43.12589231553588
+model_range="143.61201812884136/143.6246317601094/43.116643758690536/43.12589231553588"
+model_range="${left}/${right}/${bot}/${top}"
+
+gmt begin test png
+  gmt set FONT_LABEL 12p
+  gmt set MAP_FRAME_TYPE plain
+  gmt set MAP_ANNOT_OBLIQUE 32
+  gmt basemap -JM10c -R${range} -Ba2f1 -BSWrt
+  gmt makecpt -Cnuuk -T0/300 -Z 
+  if [[ ! -f interp.grd ]]; then
+    gmt grdsample @earth_relief_01s -R${range} -Ginterp.grd -I1e/1e
+  fi
+  gmt grdimage interp.grd -I+d
+
+# -I lightening: -I0.8
+  gmt colorbar -C -DjMr+o-1c/0+m  -Bxa50+lElevation -By+lm
+# -C10: mark every 10
+# -A30+f8p:  mark and annotate every 30
+  gmt grdcontour TKCH05.grd -C10 -A30+f8p -Gn3/2c
+#  gmt basemap -Lx0.35c/0.37c+c-116.673737/33.668854+w1k+u --MAP_TICK_PEN_PRIMARY=thinner --FONT_ANNOT_PRIMARY=6p --MAP_SCALE_HEIGHT=2p
+
+  # simulation domain
+  echo "${left} ${bot} ${right} ${top}" | gmt plot -Sr+s -W1p,290-0.6-1
+  # site TKCH05
+  echo "143.618352 43.121311" | gmt plot -Sa0.6c -Ggreen -l"TKCH05"
+
+# scale bar
+  gmt basemap -Lx1.5c/0.55c+c143.618352/43.121311+w500e+u --MAP_TICK_PEN_PRIMARY=thinner --FONT_ANNOT_PRIMARY=10p
+# rose
+  gmt basemap -TdjTL+o0.2c/0.6c+w1.4c+l,,,N --FONT_TITLE=10p,Helvetica,black
+  
+  gmt legend -DjTR -F+p0.8p+gwhite -S0.8 --FONT_ANNOT_PRIMARY=10p
+
+
+# Plot sites
+#  echo "143.618352 43.121311" | gmt plot -Sa0.8c -Ggreen
+#  echo "${left} ${bot} ${right} ${top}" | gmt plot -Sr+s -W1p,purple
+
+#echo "-116.673737 33.668854" | gmt plot -Sa0.6c -Gred
+#  echo "-116.673737 33.668854 00(0m)[North]" | gmt text -Fwhite+jRT+f10p -D-0.4c/-0.05c
+
+
+gmt end

@@ -1,0 +1,13 @@
+gmt begin northridge_pga_sites png
+gmt basemap -JM15c -R-119.5/-116/33/35.5 -Baf -BSWen
+#gmt coast -JM15c -R-119.5/-116/33/35.5 -G -W1/1p -Baf -BSWen
+gmt makecpt -Crelief -T-3000/3500 -Z
+gmt grdimage @earth_relief_15s -I+d -t30
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa1000+lElevation -By+lm
+#gmt plot 223_3_19_uniform_rotd50_0.5s.txt -Sc0.2c -C -l"Station"
+gmt plot records_pga.txt -St0.3c -Gpurple -l"Station"
+#gmt colorbar -Bxa1 -B+l"SA"
+gmt plot -Sa0.7c -Ggreen -l"Northridge"<< EOF
+-118.537 34.213 
+EOF
+gmt end 

@@ -1,0 +1,30 @@
+#!/bin/bash
+# Begin LSF Directives
+#BSUB -J high_f_lg_2layer
+#BSUB -P geo112
+#BSUB -W 00:01
+#BSUB -nnodes 24
+#BSUB -alloc_flags "gpumps"
+##BSUB -alloc_flags maximizegpfs
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+##BSUB -N
+
+export OMP_NUM_THREADS=1
+cd $LS_SUBCWD
+
+module unload darshan-runtime
+module load cuda
+
+cat $0
+rm debug_merge.txt
+rm debug_merge_inisource.txt
+rm debug_serial.txt
+rm debug_serial_inisource.txt
+
+# vsmin=500, qs=100vs
+jsrun -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/scratch/AWP-ODC-YFSWP/pmcl3d_serialsrc -X 1152 -Y 1152 -Z 108,464 -x 12 -y 12 -G 2  --TMAX 0.2 --DH 24.0 --DT 0.001 --ND 80 --ARBC 0.95  --IFAULT 1 --INSRC source  --IDYNA 0 --NSRC 0,15625 --NST 5000   --READ_STEP 5000 --WRITE_STEP 300  --MEDIASTART 2 --NTISKP 20   --INVEL mesh --NVE 1 --NVAR 3   --NBGX 1,1 --NEDX 3456,1152 --NBGY 1,1 --NEDY 3456,1152  --NBGZ 1,1 --NEDZ 1,1  -c output_ckp/ckp -o output_sfc_serial  --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0 > log_serial.txt
+
+jsrun -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/AWP-ODC-YFSWP/pmcl3d_mergesrc -X 1152 -Y 1152 -Z 108,464 -x 12 -y 12 -G 2 --TMAX 0.2 --DH 24.0 --DT 0.001 --ND 80 --ARBC 0.95 --IFAULT 1 --INSRC source --IDYNA 0 --NSRC 0,15625 --NST 5000 --READ_STEP 5000 --WRITE_STEP 300 --MEDIASTART 2 --NTISKP 20 --INVEL mesh --NVE 1 --NVAR 3 --NBGX 1,1 --NEDX 3456,1152 --NBGY 1,1 --NEDY 3456,1152 --NBGZ 1,1 --NEDZ 1,1 -c output_ckp/ckp -o output_sfc_debug --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0 > log_merge.txt
+
+#jsrun -n 144 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/awp_highf/pmcl3d $args

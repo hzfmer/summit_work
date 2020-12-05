@@ -1,0 +1,7 @@
+0.  90.0    # strike of major and minor principal stress vector
+1.0 1.0       # sigma1/sigma2, sigma2/sigma3
+0       50.e6      # sigma_ci_type, sigma_ci
+75.             # GSI at surface
+15.             # Hoek-Brown parameter
+1000.           # depth where GSI = 100
+-100	        # fault pos

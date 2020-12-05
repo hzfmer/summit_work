@@ -1,0 +1,15 @@
+gmt begin 223_3_19_uniform_rotd50_0.5s png
+gmt basemap -JM15c -R-119.5/-116/33/35.5 -Baf -BSWen
+gmt makecpt -Crelief -T-3000/3500 -Z
+gmt grdimage @earth_relief_15s -I+d -t30
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa1000+lElevation -By+lm
+gmt plot -Sa0.7c -Ggreen -l"Northridge"<< EOF
+-118.537 34.213
+EOF
+gmt plot -Sa0.7c -Glightcyan -l"223_3_19_uniform" << EOF
+-118.597 34.3808
+EOF
+gmt makecpt -Cplasma -T0/17.2922937 -Z
+gmt plot 223_3_19_uniform_rotd50_0.5s.txt -Sc0.2c -C -l"Station"
+gmt colorbar -Bxa1.7+lSA-0.5s -By+lm/s@+2@+
+gmt end

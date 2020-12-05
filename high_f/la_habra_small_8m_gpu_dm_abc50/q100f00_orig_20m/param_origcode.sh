@@ -1,0 +1,11 @@
+ -X 1400 -Y 1400 -Z 600 -x 10 -y 10 -G 1
+ --TMAX 30.0 --DH 20.0 --DT 0.001 --ND 100 --ARBC 0.95
+ --IFAULT 1 --INSRC source
+ --IDYNA 0 --NSRC 15625 --NST 5000 
+ --READ_STEP 5000 --WRITE_STEP 300
+ --MEDIASTART 2 --NTISKP 20 
+ --INVEL mesh --NVE 1 --NVAR 3 
+ --NBGX 1 --NEDX 1400 --NBGY 1 --NEDY 1400
+ --NBGZ 1 --NEDZ 1
+ -c output_ckp/ckp -o output_sfc
+ --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0

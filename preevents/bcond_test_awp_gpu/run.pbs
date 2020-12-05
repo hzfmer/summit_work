@@ -1,0 +1,22 @@
+#! /bin/bash -l
+#PBS -A geo112
+#PBS -l nodes=4
+#PBS -l walltime=0:10:00
+#PBS -N test_periodic_BC
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+#PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+
+export MPICH_RANK_REORDER_DISPLAY=1
+export MPICH_RANK_REORDER_METHOD=0
+export PMI_NO_FORK=1
+
+module swap PrgEnv-pgi PrgEnv-gnu
+module load cudatoolkit
+
+args=`cat param.sh`
+echo -e "Starting testing periodic BC \n `date`"
+aprun -n 12 -N 3 /ccs/home/rotend/code_gpu_yldfcswp_dm/pmcl3d $args &> log
+echo "Ending `date`"

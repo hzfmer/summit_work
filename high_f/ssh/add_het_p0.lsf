@@ -1,0 +1,16 @@
+#!/bin/zsh
+# Begin LSF Directives
+#BSUB -J add_het_p0
+#BSUB -P geo112
+#BSUB -W 00:2
+#BSUB -nnodes 3
+#BSUB -alloc_flags "gpumps"
+##BSUB -alloc_flags maximizegpfs
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+
+
+echo "Running add_het_p0, Starting at `date`"
+jsrun -n 108 -a 1 -c 1 -r 36 ./add_het_p0_summit
+#srun -n 3072 --npernode 8 ./add_het_p0
+echo "Ending at `date`"

@@ -1,0 +1,21 @@
+#!/bin/bash 
+#BSUB -P geo112
+#BSUB -nnodes 1
+#BSUB -W 0:05
+#BSUB -J srcpart
+#BSUB -o srcpart_%J.out
+#BSUB -e srcpart_%J.err
+#BSUB -alloc_flags maximizegpfs
+
+module load pgi
+module load cuda
+module unload darshan-runtime
+cd $LS_SUBCWD
+./pre-run-srcpart
+echo "Running srcpart.lsf"
+cat $0
+date
+jsrun -n 40 -a 1 -c 1 -g 0 ~/PetaSrcP/srcpart-split-mpiio momrate.dat 75048 4000 100 540 160 280 6 4 1 0
+#jsrun -n 40 -a 1 -c 1 -g 0 /ccs/home/rotend/PetaSrcP/srcpart-split-mpiio-new momrate.dat 75048 4000 100 540 160 280 3 2 1 0
+date
+

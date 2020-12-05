@@ -1,0 +1,17 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l nodes=7:ppn=32
+#PBS -l walltime=00:45:00
+#PBS -N srcpart
+#PBS -j oe
+#PBS -m bea
+#PBS -M zhh076@ucsd.edu
+
+module swap PrgEnv-cray PrgEnv-pgi
+cd $PBS_O_WORKDIR
+./pre-run-srcpart
+echo "Running srcpart.pbs"
+cat $0
+date
+aprun -n 200 ~/PetaSrcP/srcpart-split-mpiio-new momrate.dat 235200 20000 100 6320 4200 400 80 40 4 0
+date

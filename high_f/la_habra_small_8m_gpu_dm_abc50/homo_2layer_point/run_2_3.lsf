@@ -1,0 +1,21 @@
+#!/bin/bash
+# Begin LSF Directives
+#BSUB -J toy
+#BSUB -P geo112
+#BSUB -W 00:04
+#BSUB -nnodes 1
+#BSUB -alloc_flags "gpumps"
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+##BSUB -N
+
+export OMP_NUM_THREADS=1
+cd $LS_SUBCWD
+
+module unload darshan-runtime
+module load cuda
+cat $0
+args=$(cat param_2_3.sh)
+echo $args
+
+jsrun -n 6 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/awp_highf/pmcl3d $args

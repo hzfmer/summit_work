@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#PBS -l walltime=01:00:00
+#PBS -l nodes=240
+#PBS -e ucvm.e
+#PBS -o ucvm.o
+#PBS -A GEO112
+
+cd $PBS_O_WORKDIR
+/lustre/atlas/proj-shared/geo112/CyberShake/software/UCVM/single_exe.py  --site=USC  --gridout=gridout_USC  --coordfile=model_coords_GC_USC --models=cvmsi --format=awp --frequency=1.0

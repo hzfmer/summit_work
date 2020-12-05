@@ -1,0 +1,16 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l nodes=1:ppn=32
+#PBS -l walltime=00:20:00
+#PBS -N extract_stat
+#PBS -j oe
+#PBS -m bea
+#PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+
+echo $(date)
+echo "Extract synthetics at station in "stat.txt"'
+cat $0
+aprun -n 3 ~/awp_tools/bin_cray/extrts
+echo "Ending. $(date)"

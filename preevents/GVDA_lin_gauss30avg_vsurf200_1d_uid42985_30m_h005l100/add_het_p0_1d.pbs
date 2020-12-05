@@ -1,0 +1,15 @@
+#!/bin/bash -l
+#    Begin PBS directives
+#PBS -A geo112
+#PBS -N add_het_p0
+#PBS -l walltime=00:05:00,nodes=13
+##PBS -j oe
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+#PBS -M zhh076@ucsd.edu 
+#    End PBS directives and begin shell commands
+
+cd $PBS_O_WORKDIR
+echo "Running add_het_p0, starting at `date`"
+mpirun -n 100 --npernode 8 ./add_het_p0_1d_h005l100
+echo "Ending at `date`"

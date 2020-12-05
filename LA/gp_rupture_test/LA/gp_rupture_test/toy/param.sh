@@ -1,0 +1,15 @@
+  -X 540 -Y 160 -Z 280 -x 3 -y 2 -G 1
+  --TMAX 40 --DH 100.0 --DT 0.005
+  --ND 50 --ARBC 0.95
+  --IFAULT 2 --NST 4000 --READ_STEP 100
+  --INSRC input_rst/srcpart/tpsrc/tpsrc
+  --INSRC_I2 input_rst/srcpart/split_faults/fault
+  --NSRC 75048
+  --IDYNA 0  --NVE 1 --NVAR 3
+  --MEDIASTART 2 --INVEL mesh
+  --OUT output_sfc
+  --NTISKP 10 --WRITE_STEP 800
+  --NBGX 1 --NEDX 540 --NBGY 1 --NEDY 160
+  --NBGZ 1 --NEDZ 1  --OUT output_sfc 
+  --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0
+  --FOLLOWBATHY 0

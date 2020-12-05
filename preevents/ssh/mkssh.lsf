@@ -1,0 +1,13 @@
+#!/bin/bash -l
+# BEGIN LSF Directives
+#BSUB -J mkssh
+#BSUB -P geo112
+#BSUB -W 5
+#BSUB -nnodes 1
+#BSUB -o mkssh_%J.out
+#BSUB -e mkssh_%J.err
+
+module load fftw/3.3.8
+
+cd $LS_SUBCWD
+jsrun -n 1 -a 1 -c 1 -g 0 ./ssh_generate -m ssh_2.5m_h005l100_sm.out --d1 2.5 --hurst 0.05 --l1 100 --st23 5 --n1 400 --n2 400 --n3 400  # --dmi 240 #--dmi2 1500

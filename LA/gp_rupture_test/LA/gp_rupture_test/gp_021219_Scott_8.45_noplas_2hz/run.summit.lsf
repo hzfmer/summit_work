@@ -1,0 +1,33 @@
+#!/bin/bash -l
+# Begin LSF Directives
+#BSUB -J CyberShake_test
+#BSUB -P GEO112
+#BSUB -W 00:10
+#BSUB -nnodes 5
+#BSUB -alloc_flags gpumps
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+##BSUB -N
+
+
+cd $LS_SUBCWD
+
+
+module load cuda
+
+echo STARTING `date`
+jsrun -n 25 -a 1 -c 1 -g 1 -r 5 ./pmcl3d \
+ -X 600 -Y 600 -Z 392 -x 5 -y 5  \
+ --TMAX 80.0 --DH 90. --DT 0.0055  \
+ --NVAR 3  \
+ --IFAULT 1 --MEDIASTART 2 --READ_STEP 5000  \
+ --NSRC 1 --NST 5000  \
+ --FOLLOWBATHY 1  \
+ --FAC 1.0 --Q0 150. --EX 0.3 --FP  0.5  \
+ --NPC 0 --ND 20 --ARBC 0.92  \
+ --WRITE_STEP 100 --NSKPX 1 --NSKPY 1 --NTISKP 5  \
+ --NBGX 1 --NEDX 600  \
+ --NBGY 1 --NEDY 600  \
+ --NBGZ 1 --NEDZ 1  \
+ -c output_ckp/ckp -o output_sfc  \
+ --INSRC input/source --INVEL input/mesh

@@ -1,0 +1,17 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l nodes=400:ppn=32:xe
+#PBS -l walltime=01:30:00
+#PBS -N SFD
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -A xyz
+##PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+date
+cat $0
+echo "Running dyn.pbs\n"
+module swap PrgEnv-cray PrgEnv-pgi
+aprun -n 12800 ~/code_nlrupt_v6c_noplas_bw/pmcl3d
+date

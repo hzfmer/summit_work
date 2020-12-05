@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#PBS -l walltime=00:30:00
+#PBS -l nodes=1
+#PBS -e precvm.e
+#PBS -o precvm.o
+#PBS -A GEO112
+#PBS -q debug
+
+cd /lustre/atlas/proj-shared/geo112/callag/data_for_Zhifeng/mesh 
+PreCVM/pre_cvm.py  --site USC --erf_id 36  --modelbox USC.modelbox   --gridfile gridfile_USC   --gridout gridout_USC   --coordfile model_coords_GC_USC   --paramsfile model_params_GC_USC   --boundsfile model_bounds_GC_USC  --frequency 1.0 --gpu

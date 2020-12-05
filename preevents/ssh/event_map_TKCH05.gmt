@@ -1,0 +1,16 @@
+range="141.85/145.8/40.6/43.3"
+gmt begin event_map_TKCH05 png,pdf
+gmt set FONT_LABEL 12p
+gmt set MAP_FRAME_TYPE plain
+gmt set MAP_ANNOT_OBLIQUE 32
+gmt coast -JM10c -R${range} -Baf -BSWrt -W0.4p -A10 -Gwhite
+#gmt makecpt -Cgray -G-1000/8000 -T-7500/1900 -Iz
+gmt grdimage @earth_relief_15s -t30
+gmt colorbar -C -DjMr+o-1c/0+m -Bxa1500+lElevation -By+lm
+echo "143.618352 43.121311" | gmt plot -Sa0.5c -Ggreen -W0.3p,black -l"TKCH05"
+
+gmt plot TKCH05_etf_events.txt -St0.25c -W0.2p,black -Gpurple
+gmt text TKCH05_etf_events.txt -F+f6p,1+jTC -D0/-0.3c
+echo "144.0350 42.9350" | gmt plot -St0.35c -Gred -W0.2p,black
+gmt legend -DjBL -F+gwhite
+gmt end

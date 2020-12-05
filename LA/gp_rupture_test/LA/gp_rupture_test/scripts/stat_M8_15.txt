@@ -1,0 +1,1 @@
+../gp_101119_Scott_8.15_noplas_GPU_2hz/stat.txt

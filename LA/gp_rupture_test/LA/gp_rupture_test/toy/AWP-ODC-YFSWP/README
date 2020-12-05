@@ -1,0 +1,10 @@
+pmcl3d.c:
+new routine, which splits stress update in inside of subdomain into two parts:
+the first part (upper and lower) is updated while velocities left and right are exchanged
+the second part (inside region)  is updated while yield factor front and back are computed and exchanged
+the yield factors left and right are swapped while yield factors in inside domain is calculated
+
+pmcl3d_nostresssplit.c:	
+old routine, which exchanges yield factors for front, back, left and right while yield factors in inside domain are calculated.
+
+

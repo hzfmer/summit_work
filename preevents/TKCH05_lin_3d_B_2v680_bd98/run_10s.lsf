@@ -1,0 +1,21 @@
+#!/bin/bash -l
+# BEGIN LSF Directives
+#BSUB -J TKCH05_bd90
+#BSUB -P geo112
+#BSUB -W 00:05
+#BSUB -nnodes 8
+#BSUB -alloc_flags "gpumps smt1"
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+##BSUB -N
+
+cd $LS_SUBCWD
+module unload darshan-runtime
+module load cuda
+
+args=`cat param_10s.sh`
+echo "Starting run_10s.lfs.$(date)"
+cat $0
+echo $args
+jsrun -n 32 -a 3 -c 3 -g 1 -r 4 -d cyclic /ccs/home/hzfmer/scratch/AWP-ODC-YFSWP/pmcl3d $args
+echo "Ending.$(date)"

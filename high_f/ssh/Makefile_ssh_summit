@@ -1,0 +1,12 @@
+FFTW_ROOT=/autofs/nccs-svm1_sw/summit/.swci/1-compute/opt/spack/20180914/linux-rhel7-ppc64le/gcc-5.4.0/fftw-3.3.8-5ph7pxhkgupbck33o7shrnafa4wv5bnm/
+FFTW3_LD_OPTS_SERIAL=-L${FFTW_ROOT}/lib -lfftw3
+FFTW3_INCLUDE_OPTS=-I${FFTW_ROOT}/include
+orig:
+	cc $(FFTW3_INCLUDE_OPTS) \
+        -lm -o ssh_generate_summit ssh_generate.c \
+        $(FFTW3_LD_OPTS_SERIAL)
+
+dm:
+	cc $(FFTW3_INCLUDE_OPTS) \
+        -lm -o ssh_generate_dm_summit ssh_generate_dm.c \
+        $(FFTW3_LD_OPTS_SERIAL) 

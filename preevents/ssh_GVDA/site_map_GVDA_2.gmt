@@ -1,0 +1,49 @@
+left=-116.6958715
+right=-116.6525884
+bot=33.6508672
+top=33.6870580
+model_range="${left}/${right}/${bot}/${top}"
+range="-116.71588/-116.63258/33.63086/33.70706"
+
+gmt begin site_map_GVDA_2 pdf,png
+  gmt set FONT_LABEL 12p
+  gmt set MAP_FRAME_TYPE plain
+  gmt set MAP_ANNOT_OBLIQUE 32
+  gmt basemap -JM10c -R${range} -Baf -BSWrt
+  gmt makecpt -Cnuuk -T1000/2000 -Z 
+  if [[ ! -f interp.grd ]]; then
+    gmt grdsample @earth_relief_01s -R${range} -Ginterp.grd -I4e/4e
+    gmt grdsample @earth_relief_01s -R${model_range} -GGVDA.grd -I4e/4e
+#    echo $(gmt grdinfo interp.grd)
+  fi
+  gmt grdimage -R${range} interp.grd -I+d
+
+# -I lightening: -I0.8
+  gmt colorbar -C -DjMr+o-1c/0+m  -Bxa300+lElevation -By+lm
+
+# -C10: mark every 10
+# -A30+f8p:  mark and annotate every 30
+  gmt grdcontour GVDA.grd -C30 -A90+f8p -Gn3/2c
+  # simulation domain
+  echo ${left} ${bot} ${right} ${top}
+#echo "${left} ${bot} ${right} ${top}" | gmt plot -Sr+s -W1p,290-0.6-1
+gmt plot -W1p,290-0.6-1 << EOF
+${left} ${bot}
+${right} ${bot}
+${right} ${top}
+${left} ${top}
+${left} ${bot}
+EOF
+  # site GVDA
+  echo "-116.673737 33.668854" | gmt plot -Sa0.5c -Ggreen -l"GVDA"
+  # GVAR longitude / latitude
+  echo "-116.706277 33.666588" | gmt plot -St0.4c -Gred -l"GVAR"
+# scale bar
+  gmt basemap -Lx1.5c/0.6c+c-116.673737/33.668854+w2k+u --MAP_TICK_PEN_PRIMARY=thinner --FONT_ANNOT_PRIMARY=10p --MAP_SCALE_HEIGHT=2p
+# rose
+  gmt basemap -TdjTL+o0.2c/0.6c+w1.4c+l,,,N --FONT_TITLE=10p,Helvetica,black
+  
+  gmt legend -DjTR -F+p0.8p+gwhite -S0.8 --FONT_ANNOT_PRIMARY=10p
+
+
+gmt end

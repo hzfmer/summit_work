@@ -1,0 +1,23 @@
+#!/bin/bash -l
+#PBS -A geo112
+#PBS -l nodes=400
+#PBS -l walltime=02:10:00
+#PBS -N pt_src_TKCH05
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+
+export MPICH_RANK_REORDER_DISPLAY=1
+export MPICH_RANK_REORDER_METHOD=0
+export PMI_NO_FORK=1
+
+module swap PrgEnv-pgi PrgEnv-gnu
+module load cudatoolkit
+
+args=`cat param.sh`
+echo "Starting run.pbs.$(date)"
+echo $args
+aprun -n 1200 -N 3 /ccs/home/hzfmer/code_gpu_preevents_dm/pmcl3d $args
+echo "Ending.$(date)"

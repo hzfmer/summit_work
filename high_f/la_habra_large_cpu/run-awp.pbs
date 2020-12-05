@@ -1,0 +1,20 @@
+#!/bin/bash -l
+#PBS -A geo112
+#PBS -l nodes=4500
+#PBS -l walltime=24:00:00
+#PBS -N la_habra_lg
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -m bae
+##PBS -M zhh076@ucsd.edu
+
+module swap PrgEnv-pgi PrgEnv-gnu
+
+cd $PBS_O_WORKDIR
+
+echo "STARTING `date`"
+
+aprun -n 72000 /ccs/home/hzfmer/code_nlrupt_v6c_titan_highf/pmcl3d 
+
+echo "ENDING `date`"
+

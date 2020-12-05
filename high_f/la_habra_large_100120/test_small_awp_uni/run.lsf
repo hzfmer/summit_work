@@ -1,0 +1,23 @@
+#!/bin/bash
+# Begin LSF Directives
+#BSUB -J test_high_f_lg_2layer
+#BSUB -P geo112
+#BSUB -W 01:30
+#BSUB -nnodes 24
+#BSUB -alloc_flags "gpumps"
+##BSUB -alloc_flags maximizegpfs
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+##BSUB -N
+
+export OMP_NUM_THREADS=1
+cd $LS_SUBCWD
+
+module unload darshan-runtime
+module load cuda
+
+cat $0
+args=$(cat param.sh)
+echo $args
+
+jsrun -n 144 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/scratch/awp/build/src/awp/pmcl3d $args

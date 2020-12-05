@@ -1,0 +1,65 @@
+range="-116.80588/-116.54258/33.54086/33.79706"
+range="-116.74588/-116.60258/33.60086/33.73706"
+model_range="-116.69588/-116.65258/33.65086/33.68706"
+GVDA_range="-116.675051/-116.671704/33.667882/33.669529"
+
+gmt makecpt -Crelief -T200/4500 -Z -Iz > t.cpt
+
+gmt begin site_map_GVDA pdf
+  gmt set FONT_LABEL 12p
+  gmt set MAP_FRAME_TYPE plain
+  gmt set MAP_ANNOT_OBLIQUE 32
+  gmt basemap -JM10c -R${GVDA_range} -Baf -BSWrt 
+  if [[ ! -f GVDA.grd ]]; then
+    gmt grdsample @earth_relief_15s -R${GVDA_range} -GGVDA.grd -I1e/1e
+  fi
+#gmt grdimage GVDA.grd -I+d -t60
+  gmt grdimage -Ct.cpt GVDA.grd -t50
+  gmt colorbar -Ct.cpt -DjMr+o-1c/0+m -G200/2300 -Bxa300+lElevation -By+lm
+  gmt basemap -Lx4.8c/0.55c+c-116.673737/33.668854+w50e+u --MAP_TICK_PEN_PRIMARY=thinner --FONT_ANNOT_PRIMARY=10p
+  gmt basemap -TdjTR+o0.2c/0.6c+w0.8c+l,,,N --FONT_TITLE=10p,Helvetica,black
+
+# inset
+  gmt inset begin  -DjBL+w2c/2.36c+o0.1c -F+gwhite+p1p
+    gmt coast -JM? -R${range} -Swhite 
+    if [[ ! -f interp.grd ]]; then
+      gmt grdsample @earth_relief_01s -R${range} -Ginterp.grd -I16e/16e
+    fi
+    gmt grdimage -Ct.cpt interp.grd -I+d
+    gmt basemap -Lx0.35c/0.35c+c-116.673737/33.668854+w4k+u --MAP_TICK_PEN_PRIMARY=thinner --FONT_ANNOT_PRIMARY=6p --MAP_SCALE_HEIGHT=2p
+    echo "-116.6958715 33.6508672 -116.6525884 33.6870580" | gmt plot -Sr+s -W1p,purple
+#echo "-116.675051  33.667882  -116.671704 33.669529" | gmt plot -Sr+s -W0.5p,green
+
+# GVDA longitude / latitude
+   echo "-116.673737 33.668854" | gmt plot -Ss0.08c -W0.5p,black -l"GVDA"
+#echo "-116.673737 33.668854 GVDA" | gmt text -F+f5p,red+jBL -D0.2c/0.2c -W0.3p -Glightblue -C25%/25%
+
+# GVAR longitude / latitude
+   echo "-116.706277 33.666588" | gmt plot -St0.1c -W0.5p,green -l"GVAR"
+
+   gmt legend -DjTR -F+p0.4p+gwhite -S1.5 --FONT_ANNOT_PRIMARY=4p
+  gmt inset end
+
+# Model domain
+  #gmt plot -W2p,purple -L << EOF
+  #-116.6958715 33.6508672
+  #-116.6525884 33.6508672
+  #-116.6525884 33.6870580
+  #-116.6958715 33.6870580
+  #EOF
+
+# Plot sites
+  echo "-116.673737 33.668854" | gmt plot -Sa0.6c -Gred
+  echo "-116.673737 33.668854 00(0m)[North]" | gmt text -Fwhite+jRT+f10p -D-0.4c/-0.05c
+  echo "-116.673529 33.668987" | gmt plot -Sa0.6c -Gpurple
+  echo "-116.673529 33.668987 05(150m)" | gmt text -Fwhite+jRB+f10p -D-0.4c/0.8c 
+  echo "-116.673529 33.668987 [Downhole]" | gmt text -Fwhite+jRB+f10p -D-0.3c/0.3c 
+  echo "-116.673381 33.669084" | gmt plot -Ss0.6c -Gbrown
+  echo "-116.673381 33.669084 Deep PS Log" | gmt text -Fwhite+jLB+f10p -D0.35c/0.1c 
+  echo "-116.673320 33.668500" | gmt plot -Sa0.6c -Ggreen
+  echo "-116.673320 33.668500 08(0m)[Central]" | gmt text -Fwhite+jLM+f10p -D0.4c/0c 
+  echo "-116.672903 33.668165" | gmt plot -Sa0.6c -Gblue
+  echo "-116.672903 33.668165 09(0m)[South]" | gmt text -Fwhite+jLM+f10p -D0.4c/0c
+
+
+gmt end

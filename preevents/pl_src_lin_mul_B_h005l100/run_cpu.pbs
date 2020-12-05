@@ -1,0 +1,16 @@
+#!/bin/bash -l
+#PBS -A geo112
+#PBS -l nodes=200
+#PBS -l walltime=04:15:00
+#PBS -N pt_src_TKCH05
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+
+module swap PrgEnv-cray PrgEnv-pgi
+echo "Starting run.pbs.$(date)"
+echo $args
+aprun -n 2000 -N 10 /ccs/home/rotend/AWP-CPU-IWAN-bf7262538d1736c318af678b84507589dc869604/pmcl3d
+echo "Ending.$(date)"

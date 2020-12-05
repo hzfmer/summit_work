@@ -1,0 +1,17 @@
+1. cannot load libifport.so.5
+A: using PrgEnv-intel
+
+2. Number of CPUS must be divisible by 3
+A: Fix
+
+3. apsched: claim exceeds reservation's CPUs
+A: Cannot using aprun -N 3 -S 1, see https://www.olcf.ornl.gov/wp-content/uploads/2015/09/Best-Practices-v5.pdf; http://srinathv.github.io/blog/html/_downloads/aprun.txt
+
+4. NZT for grid 1 is not divisble by BLOCK_SIZE_Z.
+A: Fix
+
+5. 4078380.err, cannot open mesh
+A: Don't know why
+
+6. 4078430.err, cannot read source
+A: It seems IFAULT=1 cannot handle such large source

@@ -1,0 +1,16 @@
+#!/bin/bash -l
+#PBS -A geo112
+#PBS -l nodes=2
+#PBS -l walltime=00:15:00
+#PBS -N subm0
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -j oe
+##PBS -M zhh076@ucsd.edu
+
+module swap PrgEnv-cray PrgEnv-pgi
+cd $PBS_O_WORKDIR/srcpart
+echo "Running subm0.pbs"
+date
+mpirun -n 32 /ccs/home/hzfmer/subm0_mpi/subm0_mpi
+date

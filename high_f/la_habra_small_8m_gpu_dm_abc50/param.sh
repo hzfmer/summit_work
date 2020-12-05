@@ -1,0 +1,10 @@
+ -X 3456 -Y 3456 -Z 1400 -x 24 -y 24 -G 1
+ --TMAX 30.0 --DH 8.0 --DT 0.0004 --ND 80 --ARBC 0.95
+ --INVEL mesh --NVAR 3 --MEDIASTART 2
+ --SOURCEFILE input/source.txt 
+ --IDYNA 0 --NSRC 0 --NVE 1 
+ --NBGX 1 --NEDX 3456 --NBGY 1 --NEDY 3456
+ --NBGZ 1 --NEDZ 1
+ --NTISKP 50 --WRITE_STEP 500
+ -c output_ckp/ckp -o output_sfc
+ --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0

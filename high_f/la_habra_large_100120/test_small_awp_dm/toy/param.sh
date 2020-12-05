@@ -1,0 +1,12 @@
+ -X 120 -Y 80 -Z 64,32 -x 3 -y 2 -G 2
+ --TMAX 5.0 --DH 45.0 --DT 0.001 --ND 0 --ARBC 0.95
+ --IDYNA 0 --NSRC 0,0
+ --MEDIASTART 2 --NTISKP 1 --WRITE_STEP 100
+ --INVEL mesh --NVE 1 --NVAR 3
+ --NBGX 1,1 --NEDX 360,120 --NSKPX 2,2
+ --NBGY 1,1 --NEDY 240,80 --NSKPY 2,2
+ --NBGZ 1,1 --NEDZ 64,32 --NSKPZ 2,2
+ -c output_ckp/ckp -o output_sfc
+ --SOURCEFILE input/source.txt
+ --RECVFILE input/receiver.txt
+ --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0

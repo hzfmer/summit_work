@@ -1,0 +1,40 @@
+git-lfs/2.10.0 (GitHub; linux ppc64le; go 1.12.7; git a526ba6b)
+git version 1.8.3.1
+
+$ git-lfs track *idx
+Tracking "*idx"
+Error marking ".git_0815_2019/objects/pack/pack-612d38b7e2b819064a7e02f3871992d6d7222676.idx" modified: chtimes .git_0815_2019/objects/pack/pack-612d38b7e2b819064a7e02f3871992d6d7222676.idx: no such file or directory
+
+chtimes .git_0815_2019/objects/pack/pack-612d38b7e2b819064a7e02f3871992d6d7222676.idx: no such file or directory
+
+Current time in UTC: 
+2020-04-26 22:42:48
+
+ENV:
+LocalWorkingDir=/gpfs/alpine/geo112/scratch/hzfmer
+LocalGitDir=/gpfs/alpine/geo112/scratch/hzfmer/.git
+LocalGitStorageDir=/gpfs/alpine/geo112/scratch/hzfmer/.git
+LocalMediaDir=/gpfs/alpine/geo112/scratch/hzfmer/.git/lfs/objects
+LocalReferenceDirs=
+TempDir=/gpfs/alpine/geo112/scratch/hzfmer/.git/lfs/tmp
+ConcurrentTransfers=8
+TusTransfers=false
+BasicTransfersOnly=false
+SkipDownloadErrors=false
+FetchRecentAlways=false
+FetchRecentRefsDays=7
+FetchRecentCommitsDays=0
+FetchRecentRefsIncludeRemotes=true
+PruneOffsetDays=3
+PruneVerifyRemoteAlways=false
+PruneRemoteName=origin
+LfsStorageDir=/gpfs/alpine/geo112/scratch/hzfmer/.git/lfs
+AccessDownload=none
+AccessUpload=none
+DownloadTransfers=basic,lfs-standalone-file
+UploadTransfers=basic,lfs-standalone-file
+
+Client IP addresses:
+10.134.0.32 fe80::72e2:84ff:fe14:4486
+10.41.0.32 fe80::ee0d:9a03:49:969e
+128.219.134.72 fe80::9abe:94ff:fe73:f4a4

@@ -1,0 +1,15 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l nodee=12:ppn=32
+#PBS -l walltime=0:30:00
+#PBS -N dyn2kin
+#PBS -j oe
+#PBS -m bea
+#PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+echo "Running dyn2kin.pbs\n"
+date
+cat $0
+aprun -n 400 ~/dyn2kin_LA/srf2kin_la
+date

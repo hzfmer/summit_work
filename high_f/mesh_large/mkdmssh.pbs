@@ -1,0 +1,14 @@
+#!/bin/bash -l
+#    Begin PBS directives
+#PBS -A geo112
+#PBS -N mkssh
+#PBS -l walltime=02:00:00,nodes=1
+##PBS -j oe
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+#PBS -M zhh076@ucsd.edu
+#    End PBS directives and begin shell commands
+
+cd $PBS_O_WORKDIR
+
+aprun -n 1 ../ssh/ssh_generate_dm -m ssh_large_20m_dm.out --d1 20 --hurst 0.1 --l1 100 --st23 5 --n1 375 --n2 9000 --n3 6750 --dmi 240 #--dmi2 1500

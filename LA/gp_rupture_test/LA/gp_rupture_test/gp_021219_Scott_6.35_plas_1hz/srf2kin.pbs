@@ -1,0 +1,15 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l nodes=7:ppn=32
+#PBS -l walltime=0:20:00
+#PBS -N srf2kin
+#PBS -j oe
+##PBS -m bea
+##PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+echo "Running srf2kin.pbs\n"
+date
+cat $0
+aprun -n 212 ~/srf2kin_gp/srf2kin_gp_6_35
+date

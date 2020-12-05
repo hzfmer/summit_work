@@ -1,0 +1,1 @@
+../scripts/comp_fault_list.py

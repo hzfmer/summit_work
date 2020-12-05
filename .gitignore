@@ -1,0 +1,56 @@
+# exclude all files with a suffix
+*.*
+# exclude all files without a suffix
+*
+#except dirs
+!*/
+#except scripts or txt files
+!*.py
+!*.ipynb
+!*.sh
+!*.c
+!*.cu
+!*.cuh
+!*.h
+!*.f
+!*.f90
+!*.gmt
+!*.lsf
+!*.pbs
+!*.slurm
+!*.log
+!*.idx
+!*.conf
+!IN3D*
+
+!*.md
+!*.MD
+!*readme*
+!*README*
+!makefile*
+!Makefile*
+!MAKEFILE*
+
+!*fault*txt
+!*fault*idx
+!*site*txt
+!*site*idx
+!*stat*txt
+!*stat*idx
+!*nonlinear*dat
+*pickle
+*pkl
+!*subfault*idx
+
+*temp*
+
+!.gitignore
+!.gitattributes
+BW/*
+UCVMC/*
+ucvm*/*
+*rhea*
+.local/summit/anaconda3/*
+*/.git/*
+*anaconda*/*
+.gmt/*

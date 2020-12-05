@@ -1,0 +1,16 @@
+#!/bin/bash -l
+#PBS -A geo112
+#PBS -l nodes=27
+#PBS -l walltime=0:50:00
+#PBS -N gmrot
+#PBS -j oe
+##PBS -m bea
+##PBS -M zhh076@ucsd.edu
+
+
+cd $PBS_O_WORKDIR
+date
+echo "Running gmrot.pbs\n"
+cat $0
+mpirun -n 420 ~/file_back/programs/awp_tools/src/gmrot_rhea/gmrot_mpi
+date

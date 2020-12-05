@@ -1,0 +1,54 @@
+CC 	= mpicc
+CFLAGS	= -O3 -Wall #-DNOBGIO #-DDUMP_NONZERO #-ggdb #-DSEISMIO #-g #-g #-DDUMP_SNAPSHOTS #-DTAPER
+GFLAGS	= nvcc -O4 -Xptxas -dlcm=ca -maxrregcount=63 -use_fast_math --ptxas-options=-v -arch=sm_20 #-DELA2 -DELA #-lineinfo#-g -G 
+
+#SEISM_IO=/home/droten/seismIO-mpiio_141015/
+#SEISM_IO_INT = ${SEISM_IO}/seism_io_interface-v0.2/
+#SEISM_IO_MPIIO_C = ${SEISM_IO}/C-IO-LIBS-v0/
+#SEISM_IO_MPIIO_C_LIB = -L${SEISM_IO_MPIIO_C}/c_mpiio_LIB -lclib_mpi
+#SEISM_IO_MPIIO_F = ${SEISM_IO}/F-IO-LIBS-v0.2/
+#SEISM_IO_MPIIO_F_LIB = -L${SEISM_IO_MPIIO_F}/mpiio_LIB -lforlib_mpi
+#SEISM_IO_MPIIO_LIB = ${SEISM_IO_MPIIO_C_LIB} ${SEISM_IO_MPIIO_F_LIB}
+
+SEISM_IO = /home/droten/local/seismio/
+SEISM_IO_INT = /home/droten/local/seismio/
+
+#/home/droten/local/mpich-3.2-239/include/ 
+INCDIR  = -I/usr/local/cuda/include -I/usr/lib64/mpich-3.2/include/ -I${SEISM_IO_INT}/include
+OBJECTS	= command.o pmcl3d.o grid.o source.o mesh.o cerjan.o swap.o kernel.o io.o
+#LIB	= -lm -ldl -L/usr/local/cuda/lib64 -lcudart -lmpich -lmpifort -L${SEISM_IO_INT}/lib -lseism_io ${SEISM_IO_MPIIO_LIB}  -lgfortran -L/home/droten/local/mpich-3.2/lib/
+LIB	= -lm -ldl -L/usr/local/cuda/lib64 -lcudart -lmpich -lmpifort -L${SEISM_IO_INT}/lib -lseismio ${SEISM_IO_MPIIO_LIB}  -lgfortran -L/usr/lib64/mpich-3.2/lib/
+#-L/home/droten/local/mpich-3.2/lib/ #-lmcheck 
+
+pmcl3d:	$(OBJECTS)
+	$(CC) $(CFLAGS) $(INCDIR) -o	pmcl3d	$(OBJECTS)	$(LIB)
+
+pmcl3d.o:	pmcl3d.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o pmcl3d.o	pmcl3d.c		
+
+command.o:	command.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o	command.o	command.c	
+
+grid.o:		grid.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o grid.o		grid.c		
+
+source.o:	source.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o source.o	source.c	
+
+mesh.o:		mesh.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o mesh.o		mesh.c		
+
+cerjan.o:	cerjan.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o cerjan.o	cerjan.c
+
+swap.o:		swap.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o swap.o		swap.c
+
+io.o:		io.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o io.o		io.c
+
+kernel.o:	kernel.cu
+	$(GFLAGS) $(INCDIR) -c -o	kernel.o	kernel.cu	
+
+clean:	
+	rm -f *.o pmcl3d

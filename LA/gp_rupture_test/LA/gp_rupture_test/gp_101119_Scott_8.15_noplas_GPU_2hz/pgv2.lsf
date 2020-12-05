@@ -1,0 +1,17 @@
+#!/bin/bash -l
+#BSUB -P geo112
+#BSUB -J pgv2
+#BSUB -W 12
+#BSUB -nnodes 10
+#BSUB -o pgv2_%J.out
+#BSUB -e pgv2_%J.err
+
+module swap xl pgi
+module load cuda
+
+cd $LS_SUBCWD
+echo "Running pgv2.lsf\n"
+cat $0
+jsrun -n 420 -a 1 -c 1 -g 0 -r 42 ~/file_back/programs/awp_tools/bin_summit/pgv2 -f -l 1.0
+#jsrun -n 20 -a 20 -c 20 -g 0  ~/awp_tools/bin_summit/pgv2 -f -l 1.0
+echo "Ending $(date)\n"

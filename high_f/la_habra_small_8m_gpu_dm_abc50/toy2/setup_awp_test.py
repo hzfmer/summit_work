@@ -1,0 +1,1 @@
+/ccs/home/hzfmer/file_back/scripts/setup_awp_test.py

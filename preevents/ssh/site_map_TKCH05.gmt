@@ -1,0 +1,54 @@
+range="143.602/143.634/43.106/43.135"
+left=143.61201812884136
+right=143.6246317601094
+bot=43.116643758690536
+top=43.12589231553588
+model_range="143.61201812884136/143.6246317601094/43.116643758690536/43.12589231553588"
+model_range="${left}/${right}/${bot}/${top}"
+
+gmt begin site_map_TKCH05 pdf
+  gmt set FONT_LABEL 12p
+  gmt set MAP_FRAME_TYPE plain
+  gmt set MAP_ANNOT_OBLIQUE 32
+  gmt basemap -JM10c -R${model_range} -Baf -BSWrt 
+#if [[ ! -f TKCH05.grd ]]; then
+    gmt grdsample @earth_relief_01s -R${model_range} -GTKCH05.grd -I4e/4e
+# fi
+  gmt makecpt -Crelief -T50/200 -Z -Iz
+  gmt grdimage TKCH05.grd -I+d -t60
+  gmt colorbar -C -DjMr+o-1c/0+m -I0.8 -Bxa30+lElevation -By+lm
+  gmt grdcontour TKCH05.grd -C10 -A30+f8p -Gn3/2c
+  gmt basemap -Lx4.8c/0.55c+c143.618352/43.121311+w200e+u --MAP_TICK_PEN_PRIMARY=thinner --FONT_ANNOT_PRIMARY=10p
+  gmt basemap -TdjTR+o0.2c/0.6c+w0.8c+l,,,N --FONT_TITLE=10p,Helvetica,black
+
+# inset
+  gmt inset begin  -DjBL+w2c/2.36c+o0.1c -F+gwhite+p1p
+    gmt coast -JM? -R${range} -Swhite
+    gmt makecpt -Crelief -T0/550 -Z -Iz
+    if [[ ! -f interp.grd ]]; then
+      gmt grdsample @earth_relief_01s -R${range} -Ginterp.grd -I1e/1e
+    fi
+#    gmt grdgradient interp.grd --A45 -Nt1 -R{range} -Ggradient.grd
+    gmt grdimage interp.grd -Igradient.grd+d
+    gmt basemap -Lx0.35c/0.37c+c-116.673737/33.668854+w1k+u --MAP_TICK_PEN_PRIMARY=thinner --FONT_ANNOT_PRIMARY=6p --MAP_SCALE_HEIGHT=2p
+#
+#    # simulation domain
+    echo "${left} ${bot} ${right} ${top}" | gmt plot -Sr+s -W1p,purple
+#    # site TKCH05
+    echo "143.618352 43.121311" | gmt plot -Sa0.1c -Ggreen -l"TKCH05"
+#
+    # legend
+    gmt legend -DjTR -F+p0.4p+gwhite -S1.5 --FONT_ANNOT_PRIMARY=4p
+
+  gmt inset end
+
+
+# Plot sites
+  echo "143.618352 43.121311" | gmt plot -Sa0.8c -Ggreen
+#  echo "${left} ${bot} ${right} ${top}" | gmt plot -Sr+s -W1p,purple
+
+#echo "-116.673737 33.668854" | gmt plot -Sa0.6c -Gred
+#  echo "-116.673737 33.668854 00(0m)[North]" | gmt text -Fwhite+jRT+f10p -D-0.4c/-0.05c
+
+
+gmt end

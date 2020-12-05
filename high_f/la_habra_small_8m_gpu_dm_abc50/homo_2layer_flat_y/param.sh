@@ -1,0 +1,11 @@
+ -X 300 -Y 200 -Z 300,200 -x 1 -y 4 -G 2
+ --TMAX 9.0 --DH 90.0 --DT 0.003 --ND 0 --ARBC 0.95
+ --IFAULT 1 --INSRC source --NSRC 1,0 --NST 1000
+ --MEDIASTART 2 --NTISKP 10 --WRITE_STEP 300 --READ_STEP 1000
+ --INVEL mesh --NVE 1 --IDYNA 0 --NVAR 3
+ --NBGX 1,1 --NEDX 900,300 --NSKPX 4,2
+ --NBGY 1,1 --NEDY 600,200 --NSKPY 3,2
+ --NBGZ 1,1 --NEDZ 300,200 --NSKPZ 3,2
+ -c output_ckp/ckp -o output_sfc
+ --INTOPO topography.bin
+ --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0

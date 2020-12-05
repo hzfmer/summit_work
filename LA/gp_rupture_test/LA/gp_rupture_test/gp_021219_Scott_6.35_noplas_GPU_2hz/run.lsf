@@ -1,0 +1,24 @@
+#!/bin/bash -l
+# Begin LSF Directives
+#BSUB -J CyberShake_test
+#BSUB -P geo112
+#BSUB -W 00:40
+#BSUB -nnodes 80
+#BSUB -alloc_flags "gpumps smt1"
+##BSUB -alloc_flags maximizegpfs
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+##BSUB -N
+
+export OMP_NUM_THREADS=1
+cd $LS_SUBCWD
+
+module unload darshan-runtime
+module load cuda
+
+cat $0
+args=$(cat param.sh)
+echo $args
+#jsrun -n 480 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/AWP-ODC-YFSWP/pmcl3d $args
+#jsrun -n 480 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/AWP-ODC-YFSWP/pmcl3d -X 6320 -Y 4200 -Z 400 -x 40 -y 12 -G 1 --TMAX 400.0 --DH 100. --DT 0.005 --NPC 0 --ND 50 --ARBC 0.95 --IFAULT 2 --MEDIASTART 2 --READ_STEP 100 --NSRC 75048 --NST 40000 --INVEL mesh --NVAR 3 --INSRC input_rst/srcpart/tpsrc/tpsrc --INSRC_I2 input_rst/srcpart/split_faults/fault --NVE 1 --WRITE_STEP 200 --NTISKP 10 --NBGX 1 --NEDX 6320  --NBGY 1 --NEDY 4200 --NBGZ 1 --NEDZ 1 -c output_ckp/chkp -o output_sfc --FOLLOWBATHY 0 --SoCalQ 1 --FAC 1.0 --Q0 150. --EX 0.6 --FP 0.5
+jsrun -n 480 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/AWP-ODC-YFSWP/pmcl3d -X 6320 -Y 4200 -Z 400 -x 40 -y 12 -G 1 --TMAX 400.0 --DH 100. --DT 0.005 --NPC 0 --ND 50 --ARBC 0.95 --IFAULT 5 --MEDIASTART 2 --READ_STEP 2 --NSRC 75048 --NST 2 --INVEL mesh --NVAR 3 --INSRC gp_src.bin --NVE 1 --WRITE_STEP 200 --NTISKP 10 --NBGX 1 --NEDX 6320  --NBGY 1 --NEDY 4200 --NBGZ 1 --NEDZ 1 -c output_ckp/chkp -o output_sfc --FOLLOWBATHY 0 --SoCalQ 1 --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0

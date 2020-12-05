@@ -1,0 +1,15 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l walltime=00:05:00
+#PBS -l nodes=1:ppn=32
+#PBS -N latlon2ij
+#PBS -j oe
+#PBS -m bae
+#PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+
+echo "Starting latlon2ij. `date`\n"
+cat $0
+aprun -n 1 ./latlon2ij
+echo "Ending. `date`"

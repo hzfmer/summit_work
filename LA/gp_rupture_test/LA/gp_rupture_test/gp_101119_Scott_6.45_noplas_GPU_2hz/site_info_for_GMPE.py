@@ -1,0 +1,1 @@
+../scripts/site_info_for_GMPE.py

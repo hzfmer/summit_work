@@ -1,0 +1,16 @@
+#!/bin/bash -l
+#PBS -A geo112
+#PBS -l nodes=1
+#PBS -l walltime=00:10:00
+#PBS -N extract_stat
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+##PBS -m bea
+##PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+
+date
+echo 'extract synthetics at station in "stat.txt"'
+aprun -n 3 /ccs/home/hzfmer/awp_tools/bin_cray/extrts
+date

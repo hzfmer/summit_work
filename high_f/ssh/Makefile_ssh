@@ -1,0 +1,12 @@
+FFTW_ROOT=/autofs/nccs-svm1_sw/rhea/.swci/0-core/opt/spack/20180914/linux-rhel7-x86_64/intel-19.0.0/fftw-3.3.8-aqmbelvo75nomouwvj4ucadtpjkgdve7
+FFTW3_LD_OPTS_SERIAL=-L${FFTW_ROOT}/lib -lfftw3
+FFTW3_INCLUDE_OPTS=-I${FFTW_ROOT}/include
+orig:
+	cc $(FFTW3_INCLUDE_OPTS) \
+        -lm -o ssh_generate ssh_generate.c \
+        $(FFTW3_LD_OPTS_SERIAL)
+
+dm:
+	cc $(FFTW3_INCLUDE_OPTS) \
+        -lm -o ssh_generate_dm ssh_generate_dm.c \
+        $(FFTW3_LD_OPTS_SERIAL) 

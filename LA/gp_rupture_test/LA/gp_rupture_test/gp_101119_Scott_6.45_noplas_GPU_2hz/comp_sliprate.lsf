@@ -1,0 +1,15 @@
+#!/bin/bash -l
+# Begin LSF Directives
+#BSUB -J latlon2ij_mpi
+#BSUB -P geo112
+#BSUB -W 00:10
+#BSUB -nnodes 1
+#BSUB -o latlon2ij_mpi_%J.out
+#BSUB -e latlon2ij_mpi_%J.err
+
+cd $LS_SUBCWD
+
+echo "Start running latlon2ij_mpi. $(date)\n"
+cat $0
+jsrun -n 1 -a 1 -c 1 -g 0 ./comp_sliprate.py
+echo "Ending. $(date)"

@@ -1,0 +1,20 @@
+#!/bin/bash
+# Begin LSF Directives
+#BSUB -P GEO112
+#BSUB -W 0:02
+#BSUB -nnodes 5
+#BSUB -alloc_flags "gpumps smt1"
+#BSUB -J toy
+#BSUB -o %J.out
+#BSUB -e %J.err
+#
+export OMP_NUM_THREADS=1
+cd $LS_SUBCWD
+
+module load cuda
+
+#cuda-memcheck --show-backtrace --tool memcheck --log-file memcheck_%p.log 
+#cuda-memcheck --show-backtrace yes --tool synccheck --log-file synccheck_%p.log 
+args=`cat param.sh`
+#jsrun -n 25 -a 3 -c 3 -g 1 -r 5 -d cyclic ./AWP-ODC-YFSWP/pmcl3d $args
+jsrun -n 25 -a 3 -c 3 -g 1 -r 5 -d cyclic /ccs/home/hzfmer/AWP-ODC-YFSWP/pmcl3d $args

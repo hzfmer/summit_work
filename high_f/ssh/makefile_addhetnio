@@ -1,0 +1,8 @@
+CC=mpicc
+file=add_het_nio
+all: 
+	module load intel; \
+	$(CC) $(file).c -O2 -o $(file)
+
+clean:
+	rm $(file)

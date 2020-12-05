@@ -1,0 +1,52 @@
+range=-118.5/-117.6/33.6/34.25
+range=-119.4/-116.7/33/35.3
+
+gmt begin topography_gmt png
+gmt basemap -JM15c -R${range} -Baf -BSWen
+gmt makecpt -Cgray -T0/2400 -Z -Iz
+gmt grdsample @earth_relief_30s -R${range} -Ginterp.grd -I100e/100e
+gmt grdimage interp.grd -I+d 
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa300+lElevation -By+lm
+gmt coast -JM15c -Sskyblue -W1/1p
+gmt plot -Sa0.7c -Glightskyblue -l"2014 La Habra M5.1"<< EOF
+-117.932587 33.918633 
+EOF
+
+# Small domain
+gmt plot borders_small.txt -W2p,red -L -l"Small domain"
+
+## My medium domain
+#gmt plot borders_medium.txt -W2p,purple -L -l"Medium domain" 
+
+# Large domain
+gmt plot borders_large.txt -W2p,blue -L -l"Large domain"
+
+# Ext-large domain
+gmt plot borders_ext_large.txt -W2p,green -L -l"Ext_large domain"
+
+#gmt plot -W2p,black -L << EOF
+#-118.5, 33.6
+#-117.23, 33.6
+#-117.23, 34.35
+#-118.5, 34.35
+#EOF
+
+#gmt plot 15sites.txt -St0.3c -W0.5p
+#gmt text -Fblack+jLM -D0.2c/0.03c  << EOF
+#-117.86600 34.02100  CE_23938
+#-117.81800 33.85400  CE_13849
+#-117.80300 33.92700  CE_13882
+#EOF
+#gmt text -Fblack+jRM -D-0.2c/0.2c  << EOF
+#-117.95100 34.00900  CI_WLT
+#EOF
+
+gmt plot 259sites.txt -St0.2c -W0.5p
+# Closets site to the boundary
+echo -117.12740 33.74750 | gmt plot -St0.3c -Gorange -W0.5p
+# echo -117.12740 33.74750 CE_13924 | gmt text -F+f12p,1,orange+jRM -Gwhite -D-0.3c/0.03c
+
+# Arrow
+#echo -117.97 33.68 39.9 1i | gmt plot -Sv0.5c+e -W1.5p 
+gmt end 
+rm interp.grd

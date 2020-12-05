@@ -1,0 +1,43 @@
+CC 	= mpicc
+CFLAGS	= -O3 -Wall #-DNOBGIO #-g
+#GFLAGS	= nvcc -use_fast_math -arch=sm_35 -DELA2 
+GFLAGS = nvcc -use_fast_math -O3 -arch=sm_70 #-lineinfo#-DELA1
+
+#INCDIR  = $(CRAY_CUDATOOLKIT_INCLUDE_OPTS) -I/opt/cray/mpt/7.3.0/gni/mpich-gnu/5.1/include/
+INCDIR = -I$(CUDA_DIR)/include
+OBJECTS	= command.o pmcl3d.o grid.o source.o mesh.o cerjan.o swap.o kernel.o io.o
+#LIB	= -lm -ldl -L$($CRAY_CUDATOOLKIT_POST_LINK_OPTS) -lcudart -lmpich -Wl,--enable-new-dtags -lmpich -lstdc++
+LIB    = -lm -ldl -L$(CUDA_DIR)/lib64 -lcudart -Wl,--enable-new-dtags -lmpi_ibm #-lstdc++
+
+pmcl3d:	$(OBJECTS)
+	$(CC) $(CFLAGS) $(INCDIR) -o	pmcl3d	$(OBJECTS)	$(LIB)
+
+pmcl3d.o:	pmcl3d.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o pmcl3d.o	pmcl3d.c		
+
+command.o:	command.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o	command.o	command.c	
+
+io.o:	  io.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o	io.o	  io.c	
+
+grid.o:		grid.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o grid.o		grid.c		
+
+source.o:	source.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o source.o	source.c	
+
+mesh.o:		mesh.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o mesh.o		mesh.c		
+
+cerjan.o:	cerjan.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o cerjan.o	cerjan.c
+
+swap.o:		swap.c
+	$(CC) $(CFLAGS) $(INCDIR) -c -o swap.o		swap.c
+
+kernel.o:	kernel.cu
+	$(GFLAGS) $(INCDIR) -c -o	kernel.o	kernel.cu	
+
+clean:	
+	rm *.o

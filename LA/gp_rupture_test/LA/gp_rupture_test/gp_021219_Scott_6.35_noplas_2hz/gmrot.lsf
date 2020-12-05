@@ -1,0 +1,19 @@
+#!/bin/bash -l
+#BSUB -P geo112
+#BSUB -J gmrot
+#BSUB -W 01:00
+#BSUB -nnodes 10
+#BSUB -o gmrot_%J.out
+#BSUB -e gmrot_%J.err
+##BSUB -N zhh076@ucsd.edu
+
+module load cuda
+
+cd $LS_SUBCWD
+
+# ./mklink.sh
+echo "Running gmrot.lsf\n"
+cat $0
+jsrun -n 420 -a 1 -c 1 -g 0 -r 42 ~/file_back/programs/awp_tools/bin_summit/gmrot_mpi
+#jsrun -n 20 -a 21 -c 21 -g 0 -r 2 ~/file_back/programs/awp_tools/bin_summit/gmrot_mpi
+date

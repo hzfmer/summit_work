@@ -1,0 +1,17 @@
+#!/bin/bash -l
+#    Begin PBS directives
+#PBS -A geo112
+#PBS -N exmesh
+#PBS -l walltime=04:00:00,nodes=1296
+##PBS -j oe
+#PBS -e $PBS_JOBID.err
+#PBS -o $PBS_JOBID.out
+#PBS -M zhh076@ucsd.edu
+#    End PBS directives and begin shell commands
+
+module load iobuf
+
+cd $PBS_O_WORKDIR
+
+UCVMBIN=/lustre/atlas/proj-shared/geo112/pmaech/ucvm/bin/
+aprun -n 20736 $UCVMBIN/ucvm2mesh-mpi -f ucvm_la_habra_large.conf

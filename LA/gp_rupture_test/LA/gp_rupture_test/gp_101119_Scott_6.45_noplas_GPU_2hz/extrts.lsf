@@ -1,0 +1,18 @@
+#!/bin/bash -l
+#BSUB -P geo112
+#BSUB -J extrts
+#BSUB -W 01:20
+#BSUB -nnodes 2
+#BSUB -o extrts_%J.out
+#BSUB -e extrts_%J.err
+#PBS -M zhh076@ucsd.edu
+
+cd $LS_SUBCWD
+module swap xl pgi
+module unload darshan-runtime
+
+echo "Starting extrts.lsf `date`\n"
+echo $0
+jsrun -n 67 -a 1 -c 1 -g 0 $HOME/file_back/programs//awp_tools/bin_summit/extrts
+
+## The number of CPUs should divide the number of stations.

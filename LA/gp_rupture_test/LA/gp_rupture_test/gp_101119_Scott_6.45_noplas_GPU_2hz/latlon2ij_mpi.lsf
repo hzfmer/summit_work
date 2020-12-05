@@ -1,0 +1,24 @@
+#!/bin/bash 
+# Begin LSF Directives
+#BSUB -J latlon2ij_mpi
+#BSUB -P geo112
+#BSUB -W 00:02
+#BSUB -nnodes 1
+#BSUB -o latlon2ij_mpi_%J.out
+#BSUB -e latlon2ij_mpi_%J.err
+
+cd $LS_SUBCWD
+
+echo "Start running latlon2ij_mpi. $(date)\n"
+cat $0
+jsrun -n 1 -a 1 -c 1 -g0 ./latlon2ij
+jsrun -n 1 -a 23 -c 23 -g0 ./latlon2ij_mpi
+./pre-run-srcpart
+cd srcpart/split_faults/
+ln -s ../../link_splitfaults.py .
+python link_splitfaults.py
+cd ../tpsrc/
+ln -s ../../link_tpsrc.py .
+python link_tpsrc.py
+cd ../../
+echo "Ending. $(date)"

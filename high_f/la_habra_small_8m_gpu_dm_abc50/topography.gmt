@@ -1,0 +1,43 @@
+gmt begin topography_gmt png
+gmt basemap -JM15c -R-118.5/-117.6/33.6/34.25 -Baf -BSWen
+gmt makecpt -Cgray -T0/1600 -Z -Iz
+gmt grdsample @earth_relief_01s -R-118.5/-117.6/33.6/34.25 -Ginterp.grd -I100e/100e
+gmt grdimage interp.grd -I+d 
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa300+lElevation -By+lm
+gmt coast -JM15c -Sskyblue -W1/1p
+gmt plot -Sa0.7c -Glightskyblue -l"2014 La Habra M5.1"<< EOF
+-117.932587 33.918633 
+EOF
+gmt plot borders.txt -W2p,red -L -l"Small domain"
+gmt plot -W2p,purple -L -l"Medium domain" << EOF
+-118.35274130653636        33.95031161395228
+-117.95528410277562        33.67917886973988
+-117.68846193180535         33.9499095154548
+-118.0863793124459        34.22188425330106
+EOF
+gmt plot 15sites.txt -St0.3c -W0.5p
+
+gmt text -Fblack+jLM -D0.2c/0.03c  << EOF
+-117.86600 34.02100  CE_23938
+-117.81800 33.85400  CE_13849
+-117.80300 33.92700  CE_13882
+EOF
+gmt text -Fblack+jLM -D0.2c/0.03c  << EOF
+-117.88700 33.88900  13878
+-117.93100 33.90900  13880
+-117.95600 33.93100  13881
+-118.04700 33.88900  14026
+-118.05800 33.92800  14027
+-117.92300 33.87200  FUL  
+-117.92400 33.94500  OLI  
+EOF
+gmt text -Fblack+jLM -D0.2c/-0.3c  << EOF
+-117.95700 33.84000  13066
+-117.95900 33.86600  13879
+-117.85800 33.85300  13883
+-117.98100 33.80800  BRE  
+-117.95100 34.00900  CI_WLT
+EOF
+#echo -117.97 33.68 39.9 1i | gmt plot -Sv0.5c+e -W1.5p 
+gmt end 
+rm interp.grd

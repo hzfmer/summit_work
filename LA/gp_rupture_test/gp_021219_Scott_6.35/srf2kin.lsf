@@ -1,0 +1,19 @@
+#!/bin/bash -l
+#BSUB -P geo112
+#BSUB -nnodes 7
+#BSUB -alloc_flags gpumps
+#BSUB -W 0:30
+#BSUB -J srf2kin
+#BSUB -e %J.err
+#BSUB -o %J.out
+##BSUB -m bea
+##BSUB -M zhh076@ucsd.edu
+
+cd $LS_SUBCWD
+module load cuda
+echo $0
+echo "Running srf2kin.lsf\n"
+date
+echo $args
+jsrun -n 212 -a 1 -c 1 ~/srf2kin_gp/srf2kin_gp
+date

@@ -1,0 +1,17 @@
+#!/bin/bash -l
+#PBS -A baln
+#PBS -l nodes=3:ppn=32
+#PBS -l walltime=00:30:00
+#PBS -N extrts
+#PBS -j oe
+#PBS -m bae
+#PBS -M zhh076@ucsd.edu
+
+cd $PBS_O_WORKDIR
+
+echo "Starting extrts `date`\n"
+echo $0
+aprun -n 67 $HOME/awp_tools/bin_intel/extrts
+echo "Ending. `date`"
+
+## The number of CPUs should divide the number of stations.

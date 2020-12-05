@@ -1,0 +1,12 @@
+  -X 100 -Y 100 -Z 1000 -x 2 -y 2 -G 1
+  --TMAX 5.2   --DH 2 --DT 0.0005 
+  --ND 30 --ARBC 0.95 --NPC 2
+  --NSRC 1 --NST 6000 --READ_STEP 6000
+  --IFAULT 6 --INSRC stf.txt  
+  --INVEL mesh --MEDIASTART 2 
+  --IDYNA 0  --NVE 0 --NVAR 5 
+  --NBGX 1 --NEDX 51 --NSKPX 50
+  --NBGY 1 --NEDY 51 --NSKPY 50
+  --NBGZ 1 --NEDZ 21 --NSKPZ 20 --OUT output_sfc 
+  --NTISKP 1 --WRITE_STEP 10400
+  --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0

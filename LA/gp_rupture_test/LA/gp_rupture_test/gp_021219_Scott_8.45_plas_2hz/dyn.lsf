@@ -1,0 +1,21 @@
+#!/bin/bash -l
+# Begin LSF Directives
+#BSUB -J CyberShake_nltest
+#BSUB -P geo112
+#BSUB -W 00:05
+#BSUB -nnodes 24
+#BSUB -alloc_flags "gpumps smt1"
+##BSUB -alloc_flags maximizegpfs
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+##BSUB -N
+
+export OMP_NUM_THREADS=1
+cd $LS_SUBCWD
+
+module unload darshan-runtime
+module load cuda
+module load pgi
+
+jsrun -n 960 -a 1 -c 1 -g 0 -r 40 -d cyclic /ccs/home/hzfmer/code_nlrupt_v6c_noplas_sm/pmcl3d
+
