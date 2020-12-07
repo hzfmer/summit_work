@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J extrts       # Job name
-#SBATCH -o %j.out          # Name of stdout output file
-#SBATCH -e %j.err          # Name of stderr error file
-#SBATCH -N 1              # Total # of nodes
+#SBATCH -o extrts_%j.out          # Name of stdout output file
+#SBATCH -e extrts_%j.err          # Name of stderr error file
+#SBATCH -N 2              # Total # of nodes
 ##SBATCH -n 1           # Total # of mpi tasks
 #SBATCH -t 01:00:00        # Run time (hh:mm:ss)
 ##SBATCH --mail-type=fail    # Send email at begin and end of job
@@ -12,5 +12,5 @@
 # Require IN3D.out
 echo "Running extrts, Starting at `date`"
 cat $0
-srun -n 1  ~/file_back/programs/awp_tools/bin_andes/extrts
+srun -n 37  ~/scratch/awp_tools/bin_andes/extrts
 echo "Ending at `date`"

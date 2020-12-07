@@ -23,5 +23,5 @@ echo $0
 module swap intel gcc
 DIR=/ccs/home/hzfmer/scratch/ucvm-19.4.0
 UCVMBIN=$DIR/bin
-srun -n 2592 $UCVMBIN/ucvm2mesh_mpi -f ./ucvm_la_habra_large_0.conf;
+srun -n 2592 $UCVMBIN/ucvm2mesh_mpi -f ./ucvm_la_habra_large_8m_0conf;
 echo "ENDING `date`"
