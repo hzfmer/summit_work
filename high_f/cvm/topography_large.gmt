@@ -1,0 +1,66 @@
+range=-118.5/-117.6/33.6/34.25
+range=-119.4/-116.7/33/35.2
+
+gmt begin topography_large_gmt2 png
+gmt basemap -JM15c -R${range} -Baf -BSWen
+gmt makecpt -Czambezi -T0/2400 
+gmt grdsample @earth_relief_15s -R${range} -Ginterp.grd -I32e/32e
+gmt grdimage interp.grd -I
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa300+lElevation -By+lm
+gmt coast -JM15c -Sskyblue # -W1/1p
+gmt plot -Sa0.6c -Gblack -l"2014 La Habra M5.1"<< EOF
+-117.932587 33.918633 
+EOF
+
+
+# Large domain
+# gmt plot borders_large.txt -W1.5p,black -L 
+
+# Ext-large domain
+gmt plot borders_ext_large.txt -W1.5p,black -L # -l"Ext_large domain"
+
+gmt plot -W1.5p,purple -L << EOF
+-118.5, 33.6
+-117.23, 33.6
+-117.23, 34.35
+-118.5, 34.35
+EOF
+
+#gmt plot 15sites.txt -St0.3c -W0.5p
+#gmt text -Fblack+jLM -D0.2c/0.03c  << EOF
+#-117.86600 34.02100  CE_23938
+#-117.81800 33.85400  CE_13849
+#-117.80300 33.92700  CE_13882
+#EOF
+#gmt text -Fblack+jRM -D-0.2c/0.2c  << EOF
+#-117.95100 34.00900  CI_WLT
+#EOF
+
+gmt plot 259sites.txt -Sc0.06c -Gblack
+echo "-117.95077 34.00948 WLT" | gmt text -F+f10p,0,+jRM -D-0.15c/0.03c
+echo "-117.95077 34.00948 WLT" | gmt plot -St0.3c -Gred -W0.5p
+echo "-117.59260 33.87600 13099" | gmt text -F+f10p,0,+jRM -D-0.15c/-0.1c
+echo "-117.59260 33.87600 13099" | gmt plot -St0.3c -Gred -W0.5p
+echo "-118.47925 34.28196 RIN" | gmt text -F+f10p,0,+jLM -D0.15c/-0.3c
+echo "-118.47925 34.28196 RIN" | gmt plot -St0.3c -Gred -W0.5p
+echo "-117.31687 34.09284 CLT" | gmt text -F+f10p,0,+jRM -D-0.15c/0.03c
+echo "-117.31687 34.09284 CLT" | gmt plot -St0.3c -Gred -W0.5p
+echo "-117.03520 34.04640 23075" | gmt text -F+f10p,0,+jCT -D-0.15c/-0.1c
+echo "-117.03520 34.04640 23075" | gmt plot -St0.3c -Gred -W0.5p
+echo "-117.88578 33.70432 SAN" | gmt text -F+f10p,0,+jLM -D0.15c/0.03c
+echo "-117.88578 33.70432 SAN" | gmt plot -St0.3c -Gred -W0.5p
+echo "-117.03520 34.04640 23075" | gmt text -F+f10p,0,+jCT -D-0.15c/-0.1c 
+echo "-117.03520 34.04640 23075" | gmt plot -St0.3c -Gred -W0.5p
+
+# Closets site to the boundary
+# echo -117.12740 33.74750 | gmt plot -St0.3c -Gorange -W0.5p
+# echo -117.12740 33.74750 CE_13924 | gmt text -F+f12p,1,orange+jRM -Gwhite -D-0.3c/0.03c
+
+# Arrow
+gmt basemap -TdjBL+o0.2c/0.6c+w1.4c+l,,,N --FONT_TITLE=10p,Helvetica,black
+
+## scale bar 
+# gmt basemap -Lx1.5c/0.55c+c143.618352/43.121311+w500e+u --MAP_TICK_PEN_PRIMARY=thinner --FONT_ANNOT_PRIMARY=10p
+
+gmt end 
+rm interp.grd
