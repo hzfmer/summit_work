@@ -22,6 +22,7 @@ PX=48
 PY=36
 NIO=250
 NCPU=$((PX * PY))
+NNODES=$((NCPU/32))
 NZ_SSH=1250
 NZ_TAP=938
 VPMAX=9500.
@@ -38,5 +39,5 @@ FH_SSH=ssh_8m_large_r05h${h}l${l}.out
 FH_HET=../la_habra_large_100120/mesh_large_8m_s${std}h${h}l${l}.bin
 
 #srun -n ${NCPU} --cpu-bind=threads --distribution=cyclic  ./add_het --nx ${NX} --ny ${NY} --nz ${NZ} --std ${s} --px ${PX} --py ${PY} --nz_ssh ${NZ_SSH} --nz_tap ${NZ_TAP} --vpmax ${VPMAX} --vsmax ${VSMAX} --fh_ssh ${FH_SSH} --fh_hom ${FH_HOM} --fh_het ${FH_HET}
-srun -n ${NCPU} -N 54 ./add_het_nio --nx ${NX} --ny ${NY} --nz ${NZ} --std ${s} --px ${PX} --py ${PY} --nz_ssh ${NZ_SSH} --nz_tap ${NZ_TAP} --nio ${NIO} --vpmax ${VPMAX} --vsmax ${VSMAX} --fh_ssh ${FH_SSH} --fh_hom ${FH_HOM} --fh_het ${FH_HET}
+srun -n ${NCPU} -N $NNODES ./add_het_nio --nx ${NX} --ny ${NY} --nz ${NZ} --std ${s} --px ${PX} --py ${PY} --nz_ssh ${NZ_SSH} --nz_tap ${NZ_TAP} --nio ${NIO} --vpmax ${VPMAX} --vsmax ${VSMAX} --fh_ssh ${FH_SSH} --fh_hom ${FH_HOM} --fh_het ${FH_HET}
 echo -e "\nEnding at `date`"

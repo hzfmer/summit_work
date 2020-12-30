@@ -11,9 +11,9 @@
 
 echo "Running metrics, Starting at `date`"
 cat $0
-srun -n 320  ~/file_back/programs/awp_tools/bin_andes/metrics -f -l 0.15 -h 1 -n 6 -g
-#srun -n 320  ~/file_back/programs/awp_tools/bin_andes/metrics -f -l 0.15 -h 2.5 -n 6
-# srun -n 320  ~/file_back/programs/awp_tools/bin_andes/metrics -f -l 2.5 -h 5 -n 6
-#srun -n 320  ~/file_back/programs/awp_tools/bin_andes/metrics -f -l 0.15 -h 5 -n 6
+srun -n 320  ~/scratch/awp_tools/bin_andes/metrics -f -l 0.15 -h 1 -n 6 -g
+#srun -n 320  ~/scratch/awp_tools/bin_andes/metrics -f -l 0.15 -h 2.5 -n 6
+# srun -n 320  ~/scratch/awp_tools/bin_andes/metrics -f -l 2.5 -h 5 -n 6
+#srun -n 320  ~/scratch/awp_tools/bin_andes/metrics -f -l 0.15 -h 5 -n 6
 
 echo "Ending at `date`"

@@ -1,0 +1,13 @@
+  -X 9504 -Y 7020 -Z 2900 -x 48 -y 39 -G 1 
+  --TMAX 120.00 --DH 20.0 --DT 0.0006 
+  --ND 120 --ARBC 0.95 
+  --IDYNA 0 --NVE 1 --IFAULT 1 
+  --NSRC 0 --MEDIASTART 2
+  --INVEL mesh_topo.bin --NVAR 3
+  --NTISKP 25 --WRITE_STEP 800 
+  --NBGX 1 --NEDX 9504 --NBGY 1 --NEDY 7020 
+  --NBGZ 1 --NEDZ 1
+  --OUT output_sfc -c output_ckp/ckp
+  --SOURCEFILE input/source.txt
+  --INTOPO topography.bin
+  --FAC 1.0 --Q0 150. --EX 0.8 --FP 1.0

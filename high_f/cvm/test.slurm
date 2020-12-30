@@ -2,9 +2,9 @@
 #SBATCH -J test_cvm         # Job name
 #SBATCH -o %j.out          # Name of stdout output file
 #SBATCH -e %j.err          # Name of stderr error file
-#SBATCH -N 27              # Total # of nodes
+#SBATCH -N 1              # Total # of nodes
 ##SBATCH -n 7200           # Total # of mpi tasks
-#SBATCH -t 00:10:00        # Run time (hh:mm:ss)
+#SBATCH -t 00:05:00        # Run time (hh:mm:ss)
 ##SBATCH --mail-type=fail    # Send email at begin and end of job
 ##SBATCH --mail-user=zhh076@ucsd.edu
 #SBATCH -A geo112       # Project/Allocation name (req'd if you have more than 1)
@@ -24,7 +24,7 @@ cat $0
 module swap intel gcc
 DIR=/ccs/home/hzfmer/scratch/ucvm-19.4.0
 UCVMBIN=$DIR/bin
-srun -n 864 $UCVMBIN/ucvm2mesh_mpi -f ./test.conf
+srun -n 6 $UCVMBIN/ucvm2mesh_mpi -f ./test.conf
 #srun -n 1620 --exclusive $UCVMBIN/ucvm2mesh_mpi_layer -f ./ucvm_la_habra_small_8m_3456.conf -l 1 -c 5 &
 #srun -n 1620 --exclusive $UCVMBIN/ucvm2mesh_mpi_layer -f ./ucvm_la_habra_small_8m_3456.conf -l 6 -c 5 &
 #srun -n 1620 --exclusive $UCVMBIN/ucvm2mesh_mpi_layer -f ./ucvm_la_habra_small_8m_3456.conf -l 11 -c 5 &

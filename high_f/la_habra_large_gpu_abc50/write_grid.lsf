@@ -17,11 +17,13 @@ module load cuda
 
 cat $0
 write_grid=/ccs/home/hzfmer/awp_highf/build/tools/write_grid/write_grid
-mesh=mesh_s05h005l100.bin
+#mesh=mesh_s05h005l100.bin
+#mesh_topo=mesh_s05h005l100_topo.bin
+mesh=mesh_extlarge_20m_sh005l100.bin
 topography=topography.bin
-mesh_topo=mesh_s05h005l100_topo.bin
+mesh_topo=mesh_extlarge_20m_sh005l100_topo.bin
 rm coord_z.bin
-rm ${mesh_topo}
+#rm ${mesh_topo}
 #jsrun -n 576 -a 1 -c 1  $write_grid topography.bin coord_z.bin mesh_s05h005l100.bin mesh_s05h005l100_topo.bin 3456 3456 1400 1500 8 24 24 1 1
 jsrun -n 1440 -a 1 -c 1  $write_grid $topography coord_z.bin ${mesh} ${mesh_topo} 9504 7020 2900 3072 20 48 30 1 1
 

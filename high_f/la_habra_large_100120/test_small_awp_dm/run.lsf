@@ -2,7 +2,7 @@
 # Begin LSF Directives
 #BSUB -J test_high_f_lg_2layer
 #BSUB -P geo112
-#BSUB -W 01:30
+#BSUB -W 00:10
 #BSUB -nnodes 16
 #BSUB -alloc_flags "gpumps"
 ##BSUB -alloc_flags maximizegpfs
@@ -20,4 +20,5 @@ cat $0
 args=$(cat param.sh)
 echo $args
 
-jsrun -n 96 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/scratch/awp/build/src/awp/pmcl3d $args
+jsrun -n 96 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/scratch/AWP-ODC-YFSWP_highf/pmcl3d $args
+#jsrun -n 96 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/scratch/awp/build/src/awp/pmcl3d $args

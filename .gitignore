@@ -49,6 +49,9 @@
 BW/*
 UCVMC/*
 ucvm*/*
+awp*/*
+AWP*/*
+
 *rhea*
 .local/summit/anaconda3/*
 */.git/*

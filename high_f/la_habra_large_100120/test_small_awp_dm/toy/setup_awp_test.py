@@ -118,7 +118,7 @@ Path('output_vol').mkdir(parents=True, exist_ok=True)
 tmax = 5.0
 dh = 45.0  # bottom dh
 dt = 0.001
-use_topography = 0
+use_topography = 1
 
 # Create mesh
 # Top block
@@ -149,7 +149,7 @@ srcx, srcy, srcz = nx_0 // 2, ny_0 // 3, nz_0 // 3
 xoff, yoff, zoff = 0, 0, 0  # Better do not change
 nsrc = 2
 M0 = 1e14
-nt_src = 1000
+nt_src = 5000
 dt_src = dt  # Sometimes, the source dt is different from the simulation dt
 dh_src = dh // 3  # Normally use top block spacing to define source location
 t = np.arange(nt_src) * dt_src
@@ -195,10 +195,10 @@ for fid in [fxx, fyy, fzz, fxz, fyz, fxy]:
 
 with open("source_0", "wb") as fid:
     for i in range(nsrc):
-        idx = np.array((srcx  - xoff, srcy - yoff, srcz), dtype='int32')
+        idx = np.array((srcx  - xoff + 500, srcy - yoff, srcz), dtype='int32')
         idx.tofile(fid)
         #np.multiply(stf, np.random.rand() - 0.5).astype('float32').tofile(fid)
-        stf.astype('float32').tofile(fid)
+        np.tile(stf, (6, 1)).T.astype('float32').tofile(fid)
 
 # Write topography file
 if use_topography:
@@ -219,15 +219,16 @@ newline = "\n"
 with open('param.sh', 'w') as fid:
     fid.write(f' -X {nx_1} -Y {ny_1} -Z {nz_0},{nz_1} -x 3 -y 2 -G 2\n'
               f' --TMAX {tmax} --DH {dh} --DT {dt} --ND {ND} --ARBC 0.95\n'
-              f' --IDYNA 0 --NSRC 0,0\n'
+              f' --IDYNA 0 --NSRC 2,0 --INSRC source --READ_STEP {nt_src}\n'
+              f' --IFAULT 1 --NST {nt_src}\n'
               f' --MEDIASTART 2 --NTISKP {ntiskp} --WRITE_STEP {write_step}\n'
               f' --INVEL mesh --NVE 1 --NVAR 3\n'
               f' --NBGX 1,1 --NEDX {nx_0},{nx_1} --NSKPX 2,2\n'
               f' --NBGY 1,1 --NEDY {ny_0},{ny_1} --NSKPY 2,2\n'
               f' --NBGZ 1,1 --NEDZ {nz_0},{nz_1} --NSKPZ 2,2\n'
               f' -c output_ckp/ckp -o output_sfc\n'
-              f' --SOURCEFILE input/source.txt\n'
-              f' --RECVFILE input/receiver.txt\n'
+              #f' --SOURCEFILE input/source.txt\n'
+              #f' --RECVFILE input/receiver.txt\n'
               f'{" --INTOPO topography.bin{newline}" if use_topography else ""}'
               f' --FAC 1.0 --Q0 150. --EX 0.0 --FP 1.0')
     
@@ -307,7 +308,7 @@ with open('run.lsf', 'w') as fid:
               f'# Begin LSF Directives\n'
               f'#BSUB -J toy\n'
               f'#BSUB -P geo112\n'
-              f'#BSUB -W 00:05\n'
+              f'#BSUB -W 00:02\n'
               f'#BSUB -nnodes 1\n'
               f'#BSUB -alloc_flags "gpumps"\n'
               f'#BSUB -o run_%J.out\n'
@@ -323,6 +324,6 @@ with open('run.lsf', 'w') as fid:
               f'args=$(cat param.sh)\n'
               f'echo $args\n\n'
   
-              f'jsrun -n 6 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/awp_highf/pmcl3d $args')
+              f'jsrun -n 6 -a 3 -c 3 -g 1 -r 6 -d cyclic /ccs/home/hzfmer/scratch/awp/pmcl3d $args')
               
               

@@ -36,33 +36,15 @@ for dir in $list; do
   cd ..;
 done
 
-#for dir in $list; do
-#  cd ${dir};
-#  sbatch metrics.slurm;
-#  cd ..;
-#done
-sleep 60m;
 for dir in $list; do
   cd ${dir};
-  sbatch metrics2.slurm;
-  sleep 30m;
-  cd ..;
-done
-sleep 30m;
-for dir in $list; do
-  cd ${dir};
-  sbatch metrics3.slurm;
-  sleep 30m;
-  cd ..;
-done
-sleep 30m;
-for dir in $list; do
-  cd ${dir};
-  sbatch metrics4.slurm;
-  sleep 30m;
+  #rm extrts_31*;
+  #sbatch extrts.slurm;
+  python pickle_sites.py ../stat_name_idx.txt 19440 14904 800;
   cd ..;
 done
 
+exit -1;
 
 list2="dhyp0.50_s1485839278_q100f00_s10h005l100_vs200 dhyp0.50_s1485839278_q100f00_s10h005l500_vs200 dhyp0.50_s1485839278_q100f00_s05h005l500_vs200"
 

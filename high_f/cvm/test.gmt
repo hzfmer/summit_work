@@ -1,0 +1,13 @@
+range=-119.4/-116.7/33/35.3
+range=-119.4/-116.7/33/35.3
+
+gmt begin test png
+gmt set MAP_FRAME_TYPE plain
+gmt basemap -JM15c -R${range} -Baf -BSWen
+gmt coast -JM15c -M -W -Di > test.txt
+gmt coast -JM15c -Sskyblue -W1/1p 
+gmt plot -Sa0.7c -Glightskyblue -l"2014 La Habra M5.1"<< EOF
+-117.932587 33.918633 
+EOF
+
+gmt end 

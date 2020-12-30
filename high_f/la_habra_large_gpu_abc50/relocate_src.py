@@ -57,7 +57,7 @@ fxy = open(dir_src_xy, 'w')
 #
 #sys.exit(-1)
 
-with open("source_0", 'rb') as fidin, \
+with open("momrate.dat", 'rb') as fidin, \
      open(f'fault_idx.txt', 'w') as f_idx, \
      open(f"{dir_src}", "w") as f_coord:
     f_coord.write(

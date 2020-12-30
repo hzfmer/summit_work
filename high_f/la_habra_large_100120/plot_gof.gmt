@@ -1,0 +1,25 @@
+range=-R-119.02/-116.77/33.05/34.93
+model_region=-R-118.5/-117.23/33.6/34.35
+gmt begin results/gmt_diff_ener_src0_s10h5l500vs200_data_2.5_5hz pdf
+gmt set MAP_FRAME_TYPE plain
+gmt set FORMAT_FLOAT_OUT %.12lg
+gmt basemap -JM15c $model_region -Baf -BSWen
+gmt grdimage -Cmy_gray @earth_relief_15s -I+d
+gmt blockmean results/gmt_diff_ener_src0_s10h5l500vs200_data_2.5_5hz.txt $model_region -I128e > results/temp.txt
+gmt surface results/temp.txt $model_region -Ginterp.grd -C2 -I5k/5k -T0.25
+gmt grdsample interp.grd $model_region -Ginterp.grd -I128e/128e
+gmt grdclip interp.grd -Gclip.grd -Sa382.87151889299975/382.87151889299975 -Sb-382.87151889299975/-382.87151889299975
+gmt makecpt -Cpolar  -T-383.25477366666644/383.25477366666644/7.665095473333329
+gmt grdimage $model_range clip.grd -t40
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa153+l"% Difference"
+gmt plot results/gmt_diff_ener_src0_s10h5l500vs200_data_2.5_5hz.txt -St0.05c -C -W0.2p,black
+echo -117.932587 33.918633 | gmt plot -Sa1c -Ggreen
+gmt coast -JM15c -Swhite
+# gmt plot borders.txt -W3p,lightblue -L
+# gmt plot -W2p,black -L << EOF
+# -118.5 33.6
+# -117.23 33.6
+# -117.23 34.35
+# -118.5 34.35
+# EOF
+gmt end

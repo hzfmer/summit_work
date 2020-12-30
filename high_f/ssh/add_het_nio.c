@@ -226,7 +226,7 @@ int main(int argc, char *argv []) {
         float tmp_vp, tmp_vs, ssh;
         for (k = 0; k < readz_hom; k++) {
             if (m.rank == 0 && k == 0) {
-                printf("Start\n");
+                printf("Start chunk %d \n", c);
                 fflush(stdout);
             }
             z = c * nio + k;
