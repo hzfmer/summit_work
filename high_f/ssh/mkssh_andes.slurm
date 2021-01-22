@@ -24,7 +24,7 @@ echo $0
 #srun -n 1 ssh_generate -m ssh_8m_single_r05h015l100.out --d1 8 --hurst 0.15 --l1 100 --st23 5 --n1 1250 --n2 3456 --n3 3456
 #wait 
 
-srun -n 1 ./ssh_generate -m ssh_20m_large_single_r05h005l100.out --d1 20 --hurst 0.05 --l1 100 --st23 5 --n1 500 --n2 9504 --n3 7020
+srun -n 1 ./ssh_generate -m ssh_20m_large_single_r05h005l1000.out --d1 20 --hurst 0.05 --l1 1000 --st23 5 --n1 500 --n2 9504 --n3 7020
 #mpirun -n 1 ssh_generate_dm -m ssh_20m_dm.out --d1 20 --hurst 0.1 --l1 100 --st23 5 --n1 500 --n2 9000 --n3 6750 --dmi 360
 #mpirun -n 1 ssh_generate_dm -m ssh_20m_sm.out --d1 20 --hurst 0.1 --l1 100 --st23 5 --n1 500 --n2 1400 --n3 1400 --dmi 360
 #srun -n 1 ssh_generate_dm -m ssh_8m_r05h005l100.out --d1 8 --hurst 0.05 --l1 100 --st23 5 --n1 1250 --n2 3456 --n3 3456 --dmi 108

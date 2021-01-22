@@ -3,7 +3,7 @@
 #SBATCH -o %j.out          # Name of stdout output file
 #SBATCH -e %j.err          # Name of stderr error file
 #SBATCH -N 30              # Total # of nodes
-#SBATCH -t 03:15:00        # Run time (hh:mm:ss)
+#SBATCH -t 03:00:00        # Run time (hh:mm:ss)
 #SBATCH --mem=0            # Use all available memory 
 ##SBATCH --mail-type=fail    # Send email at begin and end of job
 ##SBATCH --mail-user=zhh076@ucsd.edu
@@ -28,9 +28,9 @@ NZ_TAP=384
 VPMAX=9500.
 VSMAX=6000.
 
-std=1
+std=2
 hurst=5
-l=100
+l=1000
 #s=$(awk -v dividend="${std}" 'BEGIN {printf "%.2f", dividend/100; exit(0)}')
 s=$std
 std=$(printf "%02d" $std)

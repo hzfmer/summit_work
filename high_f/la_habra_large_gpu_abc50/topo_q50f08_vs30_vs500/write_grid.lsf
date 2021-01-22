@@ -1,0 +1,30 @@
+#!/bin/bash 
+# Begin LSF Directives
+#BSUB -J write_grid
+#BSUB -P geo112
+#BSUB -W 00:10
+#BSUB -nnodes 35
+##BSUB -alloc_flags maximizegpfs
+#BSUB -o run_%J.out
+#BSUB -e run_%J.err
+##BSUB -N
+
+export OMP_NUM_THREADS=1
+cd $LS_SUBCWD
+
+module unload darshan-runtime
+module load cuda
+
+cat $0
+write_grid=/ccs/home/hzfmer/awp_highf/build/tools/write_grid/write_grid
+#mesh=mesh_s05h005l100.bin
+#mesh_topo=mesh_s05h005l100_topo.bin
+mesh=la_habra_ext_large_cvmsi_20m_vs30.media
+topography=topography.bin
+mesh_topo=mesh_extlarget_20m_vs30_topo.bin
+rm ${mesh_topo}
+rm coord_z.bin
+#rm ${mesh_topo}
+#jsrun -n 576 -a 1 -c 1  $write_grid topography.bin coord_z.bin mesh_s05h005l100.bin mesh_s05h005l100_topo.bin 3456 3456 1400 1500 8 24 24 1 1
+jsrun -n 1440 -a 1 -c 1  $write_grid $topography coord_z.bin ${mesh} ${mesh_topo} 9504 7020 2900 3072 20 48 30 1 1
+

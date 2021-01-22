@@ -1,0 +1,19 @@
+range=-R-118.65438/-117.86919/33.67065/34.43857
+model_region=-R-118.35438/-118.16919/33.97065/34.13857
+gmt begin loc_-118.26_34.05_3/sites_location pdf
+gmt set MAP_FRAME_TYPE plain
+gmt set FORMAT_FLOAT_OUT %.12lg
+gmt basemap -JM10c $range -Baf -BSWen
+gmt grdimage -C @earth_relief_15s -I+d
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -G0/NaN -Bx+l"Elevation (m)"
+gmt plot sites_location.txt -St0.4c -Gcyan -W0.2p,black
+echo -118.26 34.05 | gmt plot -Sa0.6c -Gred
+gmt coast -JM10c -Swhite
+# gmt plot borders.txt -W3p,lightblue -L
+# gmt plot -W2p,black -L << EOF
+# -118.35438 33.97065
+# -118.16919 33.97065
+# -118.16919 34.13857
+# -118.35438 34.13857
+# EOF
+gmt end

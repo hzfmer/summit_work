@@ -1,0 +1,8 @@
+range="-116.71588/-116.63258/33.63086/33.70706"
+gmt begin test png
+gmt basemap -JM10c -R${range} -Baf -BSWrt
+gmt makecpt -Cnuuk -T1000/2000 -Z
+gmt grdsample @earth_relief_01s -R${range} -Ginterp.grd -I4e/4e
+gmt grdimage -R${range} interp.grd -I+d -Bxaf+l"Longitude" -Bya2f+l"Latitude"
+gmt colorbar -C -DjMr+o-1c/0+m  -Bxa300+lElevation -By+lm
+gmt end
