@@ -1,6 +1,6 @@
 range=-R-118.65438/-117.86919/33.67065/34.43857
 model_region=-R-118.35438/-118.16919/33.97065/34.13857
-gmt begin loc_-118.26_34.05_3/sites_location pdf
+gmt begin loc_-118.26_34.05_1/sites_location pdf
 gmt set MAP_FRAME_TYPE plain
 gmt set FORMAT_FLOAT_OUT %.12lg
 gmt basemap -JM10c $range -Baf -BSWen

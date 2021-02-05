@@ -157,16 +157,20 @@ from scipy import spatial
 kdtree = spatial.cKDTree(np.array((grid_lon.flatten(), grid_lat.flatten())).T)
 
 mx, my, mz = 9504, 7020, 3072
-grids = np.fromfile('surf.grid', dtype='float64').reshape(my, mx, 3)[:, :, :2]
+try: 
+    vs30 = np.fromfile('Vs30_Wills.bin', dtype='float32').reshape(my, mx)
+except:
+    grids = np.fromfile('surf.grid', dtype='float64').reshape(my, mx, 3)[:, :, :2]
 
-_, out = kdtree.query(
-    np.array(
-        (grids[:, :, 0].flatten(),
-         grids[:, :, 1].flatten())).T,
-    n_jobs=-1)
+    _, out = kdtree.query(
+        np.array(
+            (grids[:, :, 0].flatten(),
+            grids[:, :, 1].flatten())).T,
+        n_jobs=-1)
 
-vs30 = arr.flatten()[out].reshape(my, mx)
-del arr
+    vs30 = arr.flatten()[out].reshape(my, mx)
+    del arr, grids
+    vs30.astype('float32').tofile('Vs30_Wills.bin')
 
 z0 = 30  # vs30
 taper = 100  # taper depth

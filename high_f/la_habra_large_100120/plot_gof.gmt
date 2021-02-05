@@ -1,18 +1,19 @@
 range=-R-119.02/-116.77/33.05/34.93
 model_region=-R-118.5/-117.23/33.6/34.35
-gmt begin results/gmt_diff_ener_tp_q50f08_s5h5l100_vs500_data_2.5_5hz pdf
+gmt begin results/gmt_diff_pgv_tp_q50f08_vs30_vs500_data_2.5_5hz pdf
 gmt set MAP_FRAME_TYPE plain
 gmt set FORMAT_FLOAT_OUT %.12lg
+gmt set MAP_TICK_LENGTH_PRIMARY 0p
 gmt basemap -JM15c $model_region -Baf -BSWen
 gmt grdimage -Cmy_gray @earth_relief_15s -I+d
-gmt blockmean results/gmt_diff_ener_tp_q50f08_s5h5l100_vs500_data_2.5_5hz.txt $model_region -I128e > results/temp.txt
+gmt blockmean results/gmt_diff_pgv_tp_q50f08_vs30_vs500_data_2.5_5hz.txt $model_region -I128e > results/temp.txt
 gmt surface results/temp.txt $model_region -Ginterp.grd -C2 -I5k/5k -T0.25
 gmt grdsample interp.grd $model_region -Ginterp.grd -I128e/128e
-gmt grdclip interp.grd -Gclip.grd -Sa414.2424795598051/414.2424795598051 -Sb-414.2424795598051/-414.2424795598051
-gmt makecpt -Cpolar  -T-414.6571366965016/414.6571366965016/8.293142733930033
+gmt grdclip interp.grd -Gclip.grd -Sa79.92/79.92 -Sb-79.92/-79.92
+gmt makecpt -Cpolar  -T-80/80/1.6
 gmt grdimage $model_range clip.grd -t40
-gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa165+l"% Difference"
-gmt plot results/gmt_diff_ener_tp_q50f08_s5h5l100_vs500_data_2.5_5hz.txt -St0.05c -C -W0.2p,black
+gmt colorbar -DjMR+o-1c/0+m -I0.3 -Bxa32+l"% Difference"
+gmt plot results/gmt_diff_pgv_tp_q50f08_vs30_vs500_data_2.5_5hz.txt -St0.05c -C -W0.2p,black
 echo -117.932587 33.918633 | gmt plot -Sa1c -Ggreen
 gmt coast -JM15c -Swhite
 # gmt plot borders.txt -W3p,lightblue -L
